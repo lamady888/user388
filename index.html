@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Build AI-ready prompts for DTF printing. Plan your gang sheet, generate print briefs, and send straight to your DTF printer.">
+<meta property="og:title" content="DTF Gang Sheet Studio">
+<meta property="og:description" content="AI prompt builder for DTF printing. Design, plan, print.">
+<meta property="og:type" content="website">
+<title>DTF Gang Sheet Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="kente-bar"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">DTF<span>Studio</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('builder')"><span class="nav-tab-num">01</span>Design Builder</button>
+      <button class="nav-tab" onclick="switchTab('planner')"><span class="nav-tab-num">02</span>Gang Sheet Planner</button>
+      <button class="nav-tab" onclick="switchTab('output')"><span class="nav-tab-num">03</span>Final Output</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-rand" onclick="randomize()">⚂ Randomize</button>
+      <button class="btn-rst" onclick="resetAll()">↺ Reset</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">DTF Gang Sheet Studio</p>
+      <h1 class="hero-title">
+        Design.
+        <span class="accent">Plan.</span>
+        <span class="accent2">Print.</span>
+      </h1>
+      <p class="hero-desc">Build AI-ready prompts for any DTF design — characters, patterns, quotes, logos, cultural art — then plan your gang sheet and send it straight to print.</p>
+      <div class="hero-badges">
+        <span class="badge">✦ Transparent PNG</span>
+        <span class="badge">✦ 300 DPI Ready</span>
+        <span class="badge">✦ Gang Sheet Planner</span>
+        <span class="badge">✦ Print Brief Generator</span>
+        <span class="badge">✦ Auto-Save</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n" id="stat-designs">0</div><div class="hstat-l">Designs</div></div>
+      <div class="hstat"><div class="hstat-n" id="stat-fill">0%</div><div class="hstat-l">Sheet used</div></div>
+      <div class="hstat"><div class="hstat-n" id="stat-prompts">0</div><div class="hstat-l">Prompts saved</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 1: DESIGN BUILDER ══ -->
+<div id="tab-builder" class="page active">
+  <div class="design-name-row">
+    <div class="dn-inner">
+      <span class="dn-label">Design name <span class="dn-opt">(optional — adds context to your prompt)</span></span>
+      <input type="text" class="dn-input" id="design-name" placeholder="e.g. Igbo Queen Vol 1, Summer Drop 2025, Memorial Tee..." oninput="onDesignNameChange()">
+    </div>
+    <div class="autosave-ind" id="autosave-ind">
+      <div class="as-dot" id="as-dot"></div>
+      <span class="as-label" id="as-label">Auto-saved</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div id="form-col"></div>
+    <div class="sidebar">
+      <div class="sc">
+        <div class="sh"><span class="st">Design preview</span><div class="sdot"></div></div>
+        <div class="sel-body" id="sel-list"><p class="sel-empty">Start selecting to see your design take shape...</p></div>
+      </div>
+      <div class="sc">
+        <div class="sh"><span class="st">AI prompt</span></div>
+        <div class="pb">
+          <p class="ph">Hit Generate — then paste into Midjourney, DALL·E, Adobe Firefly, or any AI image tool.</p>
+          <textarea class="pta" id="prompt-out" readonly placeholder="Your DTF-ready prompt will appear here..."></textarea>
+          <div class="pbtns">
+            <button class="btn-gen" id="gen-btn" onclick="generatePrompt()">Generate prompt</button>
+            <button class="btn-cp" id="copy-btn" onclick="copyPrompt()">⧉ Copy</button>
+            <button class="btn-dl-sm" onclick="downloadPrompt()" title="Download .txt">↓</button>
+          </div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="sh">
+          <span class="st">Prompt history</span>
+          <button class="hist-clear-btn" onclick="clearHistory()">Clear all</button>
+        </div>
+        <div class="sel-body" id="hist-list"><p class="sel-empty">No prompts generated yet.</p></div>
+      </div>
+      <div class="sc">
+        <div class="sh"><span class="st">DTF tips</span></div>
+        <div class="tips-body">
+          <div><p class="tl">Always transparent</p><p class="tt">DTF prints need transparent PNG — locked into every prompt automatically.</p></div>
+          <div><p class="tl">Bold outlines win</p><p class="tt">Strong outlines and solid colours transfer cleaner than soft gradients on fabric.</p></div>
+          <div><p class="tl">300 DPI minimum</p><p class="tt">Always upscale to 300 DPI before sending to your DTF printer.</p></div>
+          <div><p class="tl">Plan your sheet</p><p class="tt">Head to Tab 02 to layout your gang sheet and maximise every inch.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 2: GANG SHEET PLANNER ══ -->
+<div id="tab-planner" class="page">
+  <div class="planner-top">
+    <div class="panel">
+      <p class="panel-title">Sheet settings</p>
+      <div class="prow">
+        <span class="plabel">Sheet size</span>
+        <select class="pselect" id="sheet-size" onchange="updateSheet()">
+          <option value="22x30">22" × 30" (standard)</option>
+          <option value="22x60">22" × 60" (large)</option>
+          <option value="22x120">22" × 120" (jumbo)</option>
+          <option value="13x19">13" × 19" (small)</option>
+          <option value="custom">Custom size</option>
+        </select>
+      </div>
+      <div class="prow" id="custom-size-row" style="display:none">
+        <span class="plabel">Custom width × height (inches)</span>
+        <div style="display:flex;gap:8px">
+          <input class="pinput" id="cw" type="number" placeholder="Width" value="22" min="1" oninput="updateSheet()">
+          <input class="pinput" id="ch" type="number" placeholder="Height" value="30" min="1" oninput="updateSheet()">
+        </div>
+      </div>
+      <div class="prow">
+        <span class="plabel">Resolution</span>
+        <select class="pselect" id="sheet-dpi">
+          <option value="300">300 DPI (standard)</option>
+          <option value="600">600 DPI (high quality)</option>
+        </select>
+      </div>
+      <div class="prow">
+        <span class="plabel">Gap between designs</span>
+        <select class="pselect" id="sheet-gap" onchange="updateSheet()">
+          <option value="0.25">0.25" (tight)</option>
+          <option value="0.5" selected>0.5" (standard)</option>
+          <option value="1">1" (generous)</option>
+        </select>
+      </div>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Add a design</p>
+      <div class="prow">
+        <span class="plabel">Design name</span>
+        <input class="pinput" id="nd-name" placeholder="e.g. Igbo queen chest print" type="text">
+      </div>
+      <div class="prow">
+        <span class="plabel">Width (inches)</span>
+        <select class="pselect" id="nd-w">
+          <option value="2">2" — tag / small pocket</option>
+          <option value="3">3" — pocket print</option>
+          <option value="4">4" — small chest</option>
+          <option value="5">5" — medium chest</option>
+          <option value="6" selected>6" — standard chest</option>
+          <option value="8">8" — large chest</option>
+          <option value="10">10" — full front</option>
+          <option value="12">12" — oversized</option>
+          <option value="14">14" — full back</option>
+        </select>
+      </div>
+      <div class="prow">
+        <span class="plabel">Height (inches)</span>
+        <select class="pselect" id="nd-h">
+          <option value="2">2"</option><option value="3">3"</option>
+          <option value="4">4"</option><option value="5">5"</option>
+          <option value="6" selected>6"</option><option value="8">8"</option>
+          <option value="10">10"</option><option value="12">12"</option>
+          <option value="14">14"</option>
+        </select>
+      </div>
+      <div class="prow">
+        <span class="plabel">Quantity</span>
+        <select class="pselect" id="nd-qty">
+          <option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option>
+          <option value="5">5</option><option value="6">6</option>
+          <option value="8">8</option><option value="10">10</option>
+        </select>
+      </div>
+      <button class="add-btn" onclick="addDesign()">＋ Add to sheet</button>
+    </div>
+  </div>
+
+  <div class="design-list-panel">
+    <p class="panel-title">Designs on sheet</p>
+    <div id="design-list"><p class="empty-list">No designs added yet.</p></div>
+  </div>
+
+  <div class="preview-panel">
+    <p class="panel-title">Sheet preview <span>Visual approximation — not to scale</span></p>
+    <div class="canvas-outer"><div id="sheet-canvas"></div></div>
+  </div>
+
+  <div class="summary-panel">
+    <p class="sum-title">Sheet summary</p>
+    <div class="sum-rows">
+      <div class="sum-row"><span class="sum-k">Sheet size</span><span class="sum-v" id="sum-size">22" × 30"</span></div>
+      <div class="sum-row"><span class="sum-k">Total designs</span><span class="sum-v" id="sum-total">0</span></div>
+      <div class="sum-row"><span class="sum-k">Design area used</span><span class="sum-v" id="sum-area">0 sq in</span></div>
+      <div class="sum-row"><span class="sum-k">Sheet area</span><span class="sum-v" id="sum-sheet">660 sq in</span></div>
+      <div class="sum-row"><span class="sum-k">Sheet filled</span><span class="sum-v" id="sum-pct">0%</span></div>
+    </div>
+    <p class="sum-msg sum-ok" id="sum-msg">Add designs to start planning your sheet.</p>
+  </div>
+
+  <div class="action-row">
+    <button class="act-main" onclick="switchTab('output')">→ Go to Final Output</button>
+    <button class="act-sec" onclick="downloadBrief()">↓ Download brief</button>
+    <button class="act-sec" onclick="clearSheet()">Clear sheet</button>
+  </div>
+</div>
+
+<!-- ══ TAB 3: FINAL OUTPUT ══ -->
+<div id="tab-output" class="page">
+  <div class="out-grid">
+    <div class="out-card">
+      <div class="out-head">
+        <p class="out-title">AI design prompt</p>
+        <p class="out-sub">Paste into Midjourney, DALL·E, Adobe Firefly, or any AI image tool</p>
+      </div>
+      <div class="out-body">
+        <textarea class="out-ta" id="out-prompt" readonly placeholder="Generate your prompt in Tab 01 first..."></textarea>
+        <div class="out-btns">
+          <button class="out-btn-m" onclick="copyEl('out-prompt',this)">⧉ Copy prompt</button>
+          <button class="out-btn-s" onclick="downloadPrompt()">↓ Download .txt</button>
+          <button class="out-btn-s" onclick="switchTab('builder')">← Edit design</button>
+        </div>
+      </div>
+    </div>
+    <div class="out-card">
+      <div class="out-head">
+        <p class="out-title">Gang sheet print brief</p>
+        <p class="out-sub">Send this to your DTF printer or use as your print file brief</p>
+      </div>
+      <div class="out-body">
+        <textarea class="out-ta" id="out-sheet" readonly placeholder="Plan your sheet in Tab 02 first..."></textarea>
+        <div class="out-btns">
+          <button class="out-btn-m" onclick="copyEl('out-sheet',this)">⧉ Copy brief</button>
+          <button class="out-btn-s" onclick="downloadBrief()">↓ Download .txt</button>
+          <button class="out-btn-s" onclick="switchTab('planner')">← Edit sheet</button>
+        </div>
+      </div>
+    </div>
+    <div class="out-card" style="grid-column:1/-1">
+      <div class="out-head">
+        <p class="out-title">Pre-print checklist</p>
+        <p class="out-sub">Run through before sending to your DTF printer</p>
+      </div>
+      <div class="out-body">
+        <ul class="checklist">
+          <li><div class="ck ok">✓</div><span>Background is transparent PNG — not white or solid colour</span></li>
+          <li><div class="ck ok">✓</div><span>Resolution is 300 DPI or higher</span></li>
+          <li><div class="ck ok">✓</div><span>File saved as PNG with alpha channel (transparency) — not JPG</span></li>
+          <li><div class="ck ok">✓</div><span>Colour mode is RGB for DTF printing</span></li>
+          <li><div class="ck warn">!</div><span>Check design dimensions match your intended placement (chest, back, sleeve, pocket)</span></li>
+          <li><div class="ck warn">!</div><span>Minimum 0.25" gap between all designs on gang sheet for cutting</span></li>
+          <li><div class="ck warn">!</div><span>Confirm sheet size and orientation with your printer before uploading</span></li>
+          <li><div class="ck ok">✓</div><span>Designs with bold outlines and solid colours transfer best on fabric</span></li>
+          <li><div class="ck ok">✓</div><span>Save your AI prompt — you can regenerate variations anytime</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-brand">DTF<span>Studio</span></span>
+    <span class="footer-sep">—</span>
+    <span class="footer-copy">AI prompt builder for DTF gang sheet printing</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast-container" class="toast-container"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
