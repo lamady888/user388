@@ -220,6 +220,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .ck.ok{background:rgba(109,191,127,0.15);color:var(--green)}
 .ck.warn{background:rgba(232,184,75,0.15);color:var(--gold)}
 
+/* GARMENT MOCKUP */
+.sh-hint{font-size:9px;color:var(--muted);font-weight:400;font-family:'DM Sans',sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.mockup-body{padding:12px 16px 14px}
+.swatch-row{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.swatch-lbl{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.swatches{display:flex;gap:5px;flex-wrap:wrap}
+.swatch{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform 0.15s,border-color 0.15s;flex-shrink:0}
+.swatch:hover{transform:scale(1.2)}
+.swatch.active{border-color:var(--gold) !important;transform:scale(1.18);box-shadow:0 0 6px rgba(232,184,75,0.5)}
+.shirt-wrap{background:rgba(0,0,0,0.3);border-radius:9px;padding:12px 20px;display:flex;justify-content:center;border:1px solid var(--border)}
+.mockup-dpi{font-size:9.5px;color:var(--muted);text-align:center;margin-top:9px;font-family:'DM Mono',monospace;letter-spacing:0.04em}
+
+/* APPAREL PRESETS */
+.nd-presets{display:flex;flex-wrap:wrap;gap:5px}
+.nd-preset-btn{background:rgba(232,184,75,0.07);border:1px solid rgba(232,184,75,0.18);border-radius:5px;padding:5px 9px;font-size:10px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap}
+.nd-preset-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.12)}
+
 /* TOAST */
 .toast-container{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:12px 18px;font-size:13px;font-weight:600;color:var(--cream);transform:translateX(110%);opacity:0;transition:transform 0.3s ease,opacity 0.3s ease;pointer-events:none;max-width:280px}

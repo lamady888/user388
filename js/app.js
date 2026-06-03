@@ -134,6 +134,53 @@ const SECTIONS = [
   ]},
 ];
 
+/* ─── SHIRT COLOURS ─── */
+const SHIRT_COLORS = [
+  {name:"Black",  hex:"#111111"},
+  {name:"White",  hex:"#EFEFEF"},
+  {name:"Grey",   hex:"#6E6E6E"},
+  {name:"Navy",   hex:"#1A237E"},
+  {name:"Royal",  hex:"#1565C0"},
+  {name:"Red",    hex:"#C62828"},
+  {name:"Forest", hex:"#2E7D32"},
+  {name:"Maroon", hex:"#6D1A36"},
+  {name:"Gold",   hex:"#F9A825"},
+  {name:"Purple", hex:"#6A1B9A"},
+];
+let shirtColorHex = "#111111";
+
+/* ─── PLACEMENT ZONES (SVG coords in 200×225 viewBox) ─── */
+const PLACEMENT_ZONES = {
+  "chest print (left)":   {x:47,  y:80,  w:40,  h:40,  label:"CHEST LEFT"},
+  "chest print (centre)": {x:76,  y:80,  w:48,  h:48,  label:"CHEST CENTRE"},
+  "full front":           {x:44,  y:70,  w:112, h:118, label:"FULL FRONT"},
+  "full back":            {x:44,  y:70,  w:112, h:118, label:"FULL BACK"},
+  "sleeve print":         {x:8,   y:28,  w:28,  h:36,  label:"SLEEVE"},
+  "pocket print":         {x:47,  y:80,  w:30,  h:30,  label:"POCKET"},
+  "hat patch":            {x:62,  y:80,  w:76,  h:42,  label:"HAT PATCH"},
+  "tote bag":             {x:58,  y:78,  w:84,  h:65,  label:"TOTE BAG"},
+  "hoodie front":         {x:72,  y:76,  w:56,  h:58,  label:"HOODIE FRONT"},
+  "kids garment":         {x:72,  y:80,  w:56,  h:54,  label:"KIDS"},
+  "baby onesie":          {x:76,  y:86,  w:48,  h:46,  label:"BABY ONESIE"},
+  "lower back print":     {x:52,  y:150, w:96,  h:56,  label:"LOWER BACK"},
+  "shoulder print":       {x:44,  y:68,  w:58,  h:38,  label:"SHOULDER"},
+  "yoke print":           {x:44,  y:68,  w:112, h:40,  label:"YOKE"},
+  "all-over print":       {x:42,  y:68,  w:116, h:150, label:"ALL OVER"},
+  "full sleeve wrap":     {x:6,   y:24,  w:30,  h:42,  label:"SLEEVE WRAP"},
+};
+
+/* ─── APPAREL PRESETS ─── */
+const APPAREL_PRESETS = [
+  {label:"Tag",        w:1.5, h:1.5},
+  {label:"Pocket",     w:4,   h:4},
+  {label:"Chest",      w:12,  h:12},
+  {label:"Full Front", w:13,  h:16},
+  {label:"Full Back",  w:12,  h:14},
+  {label:"Sleeve",     w:4,   h:12},
+  {label:"Kids",       w:8,   h:8},
+  {label:"Baby",       w:6,   h:6},
+];
+
 /* ─── STATE ─── */
 const LS_STATE = 'dtf_state';
 const LS_HISTORY = 'dtf_history';
@@ -310,7 +357,7 @@ function buildForm() {
   });
 }
 
-function onSel(id, v) { state[id].value = v; updateSel(); saveState(); }
+function onSel(id, v) { state[id].value = v; updateSel(); saveState(); if (id === 'placement') updateMockup(); }
 function onCI(id, v) { state[id].custom = v; updateSel(); saveState(); }
 function toggleC(id) {
   state[id].showCustom = !state[id].showCustom;
@@ -321,6 +368,7 @@ function toggleI(id) {
   document.getElementById(`cb-${id}`).className = 'cbox' + (state[id].include ? ' on' : '');
   updateSel();
   saveState();
+  if (id === 'placement') updateMockup();
 }
 function onDesignNameChange() { saveState(); }
 
@@ -339,6 +387,88 @@ function updateSel() {
     if (rows) { html += `<div class="sel-sec">${s.title}</div>${rows}`; any = true; }
   });
   el.innerHTML = any ? html : '<p class="sel-empty">Start selecting to see your design take shape...</p>';
+}
+
+/* ─── GARMENT MOCKUP ─── */
+function buildSwatches() {
+  const el = document.getElementById('swatches');
+  if (!el) return;
+  el.innerHTML = SHIRT_COLORS.map(c =>
+    `<div class="swatch${c.hex === shirtColorHex ? ' active' : ''}"
+      style="background:${c.hex};${c.hex === '#EFEFEF' ? 'border-color:rgba(100,100,100,0.4)' : ''}"
+      title="${c.name}"
+      onclick="setShirtColor('${c.hex}')"></div>`
+  ).join('');
+}
+
+function setShirtColor(hex) {
+  shirtColorHex = hex;
+  const path = document.getElementById('shirt-body');
+  if (path) path.setAttribute('fill', hex);
+  buildSwatches();
+}
+
+function updateMockup() {
+  const placement = (inc('placement') ? getVal('placement') : null) || 'chest print (centre)';
+  const zone = PLACEMENT_ZONES[placement] || PLACEMENT_ZONES['chest print (centre)'];
+  const hint = document.getElementById('placement-hint');
+  const rect = document.getElementById('pl-rect');
+  const text = document.getElementById('pl-text');
+  const dpiEl = document.getElementById('mockup-dpi');
+
+  if (hint) hint.textContent = placement;
+  if (rect) {
+    rect.setAttribute('x', zone.x);
+    rect.setAttribute('y', zone.y);
+    rect.setAttribute('width', zone.w);
+    rect.setAttribute('height', zone.h);
+  }
+  if (text) {
+    text.setAttribute('x', zone.x + zone.w / 2);
+    text.setAttribute('y', zone.y + zone.h / 2 + 2.5);
+    text.textContent = zone.label;
+  }
+  if (dpiEl) {
+    const dpiSel = document.getElementById('sheet-dpi');
+    const dpi = dpiSel ? parseInt(dpiSel.value) : 300;
+    const fieldW = findField('placement');
+    const qSel = document.getElementById('nd-w');
+    const w = qSel ? parseFloat(qSel.value) : null;
+    const h = qSel ? parseFloat(document.getElementById('nd-h').value) : null;
+    if (w && h) {
+      dpiEl.textContent = `${w}" × ${h}" @ ${dpi} DPI = ${Math.round(w*dpi).toLocaleString()} × ${Math.round(h*dpi).toLocaleString()} px`;
+    } else {
+      dpiEl.textContent = `placement: ${placement}`;
+    }
+  }
+}
+
+/* ─── APPAREL PRESETS ─── */
+function buildPresets() {
+  const el = document.getElementById('nd-presets');
+  if (!el) return;
+  el.innerHTML = APPAREL_PRESETS.map(p =>
+    `<button class="nd-preset-btn" onclick="applyPreset('${escHtml(p.label)}',${p.w},${p.h})">${escHtml(p.label)}</button>`
+  ).join('');
+}
+
+function applyPreset(label, w, h) {
+  const wSel = document.getElementById('nd-w');
+  const hSel = document.getElementById('nd-h');
+  const nameSel = document.getElementById('nd-name');
+  if (wSel) {
+    const closest = Array.from(wSel.options).map(o => parseFloat(o.value))
+      .reduce((a, b) => Math.abs(b - w) < Math.abs(a - w) ? b : a);
+    wSel.value = closest;
+  }
+  if (hSel) {
+    const closest = Array.from(hSel.options).map(o => parseFloat(o.value))
+      .reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+    hSel.value = closest;
+  }
+  if (nameSel && !nameSel.value.trim()) nameSel.value = label;
+  updateMockup();
+  showToast(label + ' preset: ' + w + '" × ' + h + '"');
 }
 
 /* ─── PROMPT ─── */
@@ -664,4 +794,7 @@ updateSheet();
 renderList();
 renderHistory();
 updateStatPrompts();
+buildSwatches();
+updateMockup();
+buildPresets();
 document.getElementById('stat-designs').textContent = designs.length;

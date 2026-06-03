@@ -91,6 +91,32 @@
           </div>
         </div>
       </div>
+      <!-- GARMENT MOCKUP -->
+      <div class="sc">
+        <div class="sh">
+          <span class="st">Garment mockup</span>
+          <span class="sh-hint" id="placement-hint">chest centre</span>
+        </div>
+        <div class="mockup-body">
+          <div class="swatch-row">
+            <span class="swatch-lbl">Shirt colour</span>
+            <div class="swatches" id="swatches"></div>
+          </div>
+          <div class="shirt-wrap">
+            <svg id="shirt-svg" viewBox="0 0 200 225" xmlns="http://www.w3.org/2000/svg" width="100%">
+              <!-- shirt silhouette -->
+              <path id="shirt-body" d="M 62,6 Q 100,32 138,6 L 196,54 L 160,67 L 160,218 L 40,218 L 40,67 L 4,54 Z" fill="#111111" stroke="rgba(232,184,75,0.2)" stroke-width="1.5"/>
+              <!-- collar highlight -->
+              <path d="M 62,6 Q 100,32 138,6" fill="none" stroke="rgba(232,184,75,0.15)" stroke-width="2"/>
+              <!-- design placement zone -->
+              <rect id="pl-rect" x="76" y="80" width="48" height="48" fill="rgba(196,82,26,0.45)" stroke="#e06030" stroke-width="1.5" stroke-dasharray="4 2" rx="3"/>
+              <text id="pl-text" x="100" y="108" text-anchor="middle" font-size="6.5" fill="rgba(245,234,216,0.85)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.8">CHEST CENTRE</text>
+            </svg>
+          </div>
+          <div class="mockup-dpi" id="mockup-dpi">— select a placement</div>
+        </div>
+      </div>
+
       <div class="sc">
         <div class="sh">
           <span class="st">Prompt history</span>
@@ -151,6 +177,10 @@
     </div>
     <div class="panel">
       <p class="panel-title">Add a design</p>
+      <div class="prow">
+        <span class="plabel">Quick presets</span>
+        <div id="nd-presets" class="nd-presets"></div>
+      </div>
       <div class="prow">
         <span class="plabel">Design name</span>
         <input class="pinput" id="nd-name" placeholder="e.g. Igbo queen chest print" type="text">
