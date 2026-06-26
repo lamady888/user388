@@ -31,7 +31,8 @@ const SECTIONS = [
       "Pixar 3D render","retro vintage cartoon","comic book style",
       "bold graffiti art","minimalist line art","stained glass style",
       "Art Deco illustration","psychedelic pop art","street art / mural style",
-      "tattoo flash art","ukiyo-e woodblock style","Baroque portrait style"
+      "tattoo flash art","ukiyo-e woodblock style","Baroque portrait style",
+      "vintage halftone / distressed screen print","vintage concert tee graphic","retro bitmap illustration"
     ]},
     {id:"finish", label:"ART FINISH", pk:"finish", options:[
       "high gloss illustration","soft airbrushed shine","cell-shaded gloss",
@@ -39,7 +40,8 @@ const SECTIONS = [
       "glossy","warm earth tone wash","golden hour cinematic",
       "matte fine art finish","dramatic contrast finish","neon pop art finish",
       "metallic sheen finish","holographic glow","vintage faded finish",
-      "high contrast ink finish","smooth vector clean finish"
+      "high contrast ink finish","smooth vector clean finish",
+      "distressed screen-print finish","washed vintage ink finish"
     ]},
   ]},
   {title:"COLOURS & MOOD", fields:[
@@ -755,14 +757,170 @@ function clearSheet() {
   showToast('Sheet cleared');
 }
 
+/* ─── VINTAGE HALFTONE ENGINE ─── */
+const VH_DATA = {
+  halftoneType: {
+    options: [
+      {id:"dot",       label:"Dot halftone",       hint:"Circular dot matrix pattern — the classic screen-print halftone",      prompt:"dot halftone shading with circular dot matrix pattern"},
+      {id:"line",      label:"Line halftone",       hint:"Parallel ruling lines — engraving-style halftone texture",             prompt:"line halftone shading with parallel ruling lines"},
+      {id:"stipple",   label:"Stipple halftone",    hint:"Hand-drawn dot texture — organic and tactile feel",                   prompt:"stipple halftone shading with hand-drawn dot texture"},
+      {id:"engraved",  label:"Engraved halftone",   hint:"Crosshatch etching — woodcut and letterpress inspired",               prompt:"engraved halftone shading with crosshatch etching texture"},
+      {id:"newspaper", label:"Newspaper bitmap",    hint:"Coarse offset print texture — raw and gritty newsprint look",         prompt:"newspaper bitmap halftone with coarse offset print texture"},
+    ]
+  },
+  distressLevel: {
+    options: [
+      {id:"clean",  label:"Clean",                   hint:"Sharp, fresh print — no wear or aging",                                   prompt:"clean crisp screen-print"},
+      {id:"light",  label:"Light distress",           hint:"Subtle wear marks — freshly broken-in feel",                            prompt:"lightly distressed with subtle wear marks and soft edge fading"},
+      {id:"medium", label:"Medium vintage distress",  hint:"Faded edges, subtle print breakdown and aging texture",                 prompt:"medium vintage distress with faded edges, print breakdown and aged texture"},
+      {id:"heavy",  label:"Heavy worn tee distress",  hint:"Cracked ink, heavy aging — well-loved vintage tee",                    prompt:"heavily distressed worn tee look with ink cracking, severe aging and heavy print wear"},
+    ]
+  },
+  inkFeel: {
+    options: [
+      {id:"soft",    label:"Soft washed ink",        hint:"Gentle faded look — lightweight fashion feel",                          prompt:"soft washed ink feel, gentle faded print with translucent ink quality"},
+      {id:"cracked", label:"Cracked vintage ink",    hint:"Visible ink breakdown — aged and well-worn",                            prompt:"cracked vintage ink with visible ink breakdown and crazing"},
+      {id:"faded",   label:"Faded poster ink",       hint:"Subtle bleed and bleed — bleached-out poster aesthetic",               prompt:"faded poster-style ink with subtle bleed and colour loss"},
+      {id:"heavy",   label:"Heavy screen print ink", hint:"Bold and opaque — maximum ink coverage",                               prompt:"heavy bold screen-print ink with solid coverage and thick ink deposit"},
+    ]
+  },
+  garmentTarget: {
+    options: [
+      {id:"black",    label:"Black shirt",     hint:"Black shirt — dark garment ready, high contrast artwork",        prompt:"designed for black garment, dark garment ready, artwork with strong light values",    bg:"#111111"},
+      {id:"charcoal", label:"Charcoal shirt",  hint:"Charcoal shirt — dark base, slightly softer contrast",           prompt:"designed for charcoal garment, dark garment ready, high contrast light tones",        bg:"#444444"},
+      {id:"white",    label:"White shirt",     hint:"White shirt — light base, full colour range available",           prompt:"designed for white garment, light garment, full colour saturation",                  bg:"#EFEFEF"},
+      {id:"cream",    label:"Cream shirt",     hint:"Cream or off-white — warm base tone, earthy palette feel",       prompt:"designed for cream or off-white garment, warm garment tone, earthy palette",          bg:"#f5ead8"},
+      {id:"colored",  label:"Colored garment", hint:"Bold coloured base — design must contrast strongly",             prompt:"designed for coloured garment, artwork with strong contrast and bold outlines",        bg:"#1565C0"},
+    ]
+  },
+  colorMode: {
+    options: [
+      {id:"sepia",     label:"Sepia gold",          hint:"Warm aged brown tones — aged paper and sepia gold",                      prompt:"sepia gold and aged brown colour palette, warm vintage tones, antique ink feel"},
+      {id:"cream",     label:"Cream and black",      hint:"Stark two-tone contrast — clean and timeless",                         prompt:"cream and black two-tone colour palette, stark graphic contrast"},
+      {id:"mono",      label:"Faded monochrome",     hint:"Muted grayscale — bleached-out classic look",                          prompt:"faded monochrome grayscale palette with muted washed tones"},
+      {id:"redcream",  label:"Washed red and cream", hint:"Vintage sports and band tee palette",                                   prompt:"washed red and cream colour palette, vintage sports and concert tee feel"},
+      {id:"charcoal",  label:"Charcoal and bone",    hint:"Dark and moody with bone white accents",                               prompt:"charcoal and bone white colour palette, muted dark contrast"},
+      {id:"fullcolor", label:"Vintage full color",   hint:"Full palette with muted, washed-out vintage shift",                    prompt:"vintage full colour palette with muted washed-out tones and aged colour shift"},
+    ]
+  },
+};
+
+let vhState = {
+  halftoneType:  "dot",
+  distressLevel: "medium",
+  inkFeel:       "soft",
+  garmentTarget: "black",
+  colorMode:     "sepia",
+  subject:       "",
+};
+
+function getVHOpt(category, id) {
+  return VH_DATA[category].options.find(o => o.id === id) || VH_DATA[category].options[0];
+}
+
+function generateVintagePrompt() {
+  const ht  = getVHOpt('halftoneType',  vhState.halftoneType);
+  const dl  = getVHOpt('distressLevel', vhState.distressLevel);
+  const ink = getVHOpt('inkFeel',       vhState.inkFeel);
+  const gt  = getVHOpt('garmentTarget', vhState.garmentTarget);
+  const cm  = getVHOpt('colorMode',     vhState.colorMode);
+  const subj = vhState.subject.trim();
+
+  const parts = [
+    "vintage screen-print style illustration",
+    ...(subj ? [subj] : []),
+    ht.prompt,
+    dl.prompt,
+    ink.prompt,
+    cm.prompt,
+    gt.prompt,
+    "high contrast vintage poster-style artwork",
+    "distressed bitmap texture throughout",
+    "vintage concert tee graphic composition",
+    "centered chest print composition",
+    "soft ink look not a hard sticker",
+    "transparent background PNG",
+    "DTF print ready",
+    "300 DPI",
+    "clean edges",
+    "no blur",
+    "no watermark",
+  ];
+
+  return parts.join(", ") + ".";
+}
+
+function setVH(category, value) {
+  vhState[category] = value;
+
+  const group = document.getElementById('vhg-' + category);
+  if (group) {
+    group.querySelectorAll('.vh-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === value);
+    });
+  }
+
+  const opt = getVHOpt(category, value);
+
+  const hint = document.getElementById('vh-hint-' + category);
+  if (hint) hint.textContent = opt.hint || '';
+
+  if (category === 'garmentTarget') {
+    const shirt = document.getElementById('vh-shirt-body');
+    if (shirt) shirt.setAttribute('fill', opt.bg);
+    const lbl = document.getElementById('vh-garment-label');
+    if (lbl) lbl.textContent = opt.label;
+  }
+
+  const out = document.getElementById('vh-prompt-out');
+  if (out) out.value = generateVintagePrompt();
+
+  updateVHTags();
+}
+
+function onVHSubject(v) {
+  vhState.subject = v;
+  const out = document.getElementById('vh-prompt-out');
+  if (out) out.value = generateVintagePrompt();
+}
+
+function updateVHTags() {
+  const el = document.getElementById('vh-tags');
+  if (!el) return;
+  const cats = ['halftoneType','distressLevel','inkFeel','garmentTarget','colorMode'];
+  const tags = cats.map(cat => {
+    const opt = getVHOpt(cat, vhState[cat]);
+    return `<span class="vh-tag">${escHtml(opt.label)}</span>`;
+  }).join('');
+  el.innerHTML = tags;
+}
+
+function copyVHPrompt() {
+  const t = document.getElementById('vh-prompt-out').value;
+  if (!t) { showToast('Generate a prompt first'); return; }
+  navigator.clipboard.writeText(t).then(() => showToast('Vintage prompt copied ✓'));
+}
+
+function downloadVHPrompt() {
+  const t = document.getElementById('vh-prompt-out').value;
+  dlTxt(t, 'vintage-halftone-prompt.txt');
+}
+
+function initVintageTab() {
+  const out = document.getElementById('vh-prompt-out');
+  if (out) out.value = generateVintagePrompt();
+  updateVHTags();
+}
+
 /* ─── NAVIGATION ─── */
 function switchTab(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  const idx = ['builder', 'planner', 'output'].indexOf(name);
+  const idx = ['builder', 'planner', 'output', 'vintage'].indexOf(name);
   document.querySelectorAll('.nav-tab')[idx].classList.add('active');
   if (name === 'output') updateSheetOutput();
+  if (name === 'vintage') initVintageTab();
 }
 
 /* ─── TOAST ─── */

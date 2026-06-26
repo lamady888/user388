@@ -242,6 +242,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:12px 18px;font-size:13px;font-weight:600;color:var(--cream);transform:translateX(110%);opacity:0;transition:transform 0.3s ease,opacity 0.3s ease;pointer-events:none;max-width:280px}
 .toast.show{transform:translateX(0);opacity:1}
 
+/* ─── VINTAGE HALFTONE BUILDER ─── */
+.vh-hero{position:relative;background:linear-gradient(145deg,#0d0805 0%,#1a0f0a 50%,#241510 100%);border:1px solid var(--border);border-radius:14px;padding:44px 44px 40px;margin-bottom:40px;overflow:hidden}
+.vh-hero-bg{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(232,184,75,0.035) 0,rgba(232,184,75,0.035) 1px,transparent 1px,transparent 12px),repeating-linear-gradient(90deg,rgba(232,184,75,0.035) 0,rgba(232,184,75,0.035) 1px,transparent 1px,transparent 12px);pointer-events:none}
+.vh-hero::after{content:'';position:absolute;top:-80px;right:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(196,82,26,0.14) 0%,transparent 65%);pointer-events:none}
+.vh-eyebrow{position:relative;font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--rust-light);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.vh-eyebrow::before{content:'';flex:0 0 20px;height:1px;background:var(--rust-light)}
+.vh-title{position:relative;font-family:'Playfair Display',serif;font-size:clamp(30px,4.5vw,58px);font-weight:900;line-height:0.95;color:var(--cream);letter-spacing:-0.02em;margin-bottom:16px}
+.vh-title span{color:var(--gold);font-style:italic;display:block}
+.vh-desc{position:relative;font-size:13.5px;color:var(--muted);line-height:1.75;max-width:580px;font-weight:300;margin-bottom:0}
+.vh-badges{position:relative;display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+
+/* SUBJECT ROW */
+.vh-subject-row{margin-bottom:34px}
+.vh-sub-label{font-size:9.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+
+/* CONTROL GROUPS */
+.vh-group{margin-bottom:38px}
+.vh-group-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.vh-g-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;font-style:italic;color:var(--rust-light);line-height:1;flex-shrink:0;min-width:34px}
+.vh-g-name{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream)}
+.vh-g-rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(232,184,75,0.2),transparent)}
+.vh-hint{font-size:10.5px;color:var(--faint);margin-top:10px;font-style:italic;line-height:1.5;transition:color 0.2s}
+
+/* PILL BUTTONS */
+.vh-pills{display:flex;flex-wrap:wrap;gap:8px}
+.vh-pill{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 18px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;letter-spacing:0.02em;position:relative;overflow:hidden}
+.vh-pill:hover{border-color:rgba(232,184,75,0.4);color:var(--cream);background:#341f12}
+.vh-pill.active{background:linear-gradient(135deg,rgba(196,82,26,0.3),rgba(224,96,48,0.18));border-color:var(--rust-light);color:var(--cream);box-shadow:0 0 14px rgba(196,82,26,0.18),inset 0 0 20px rgba(196,82,26,0.06)}
+
+/* GARMENT PILL — colour dot */
+.vh-gp::after{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gc,#111);border:1px solid rgba(255,255,255,0.25);margin-left:8px;vertical-align:middle;flex-shrink:0}
+
+/* ACTIVE TAGS */
+.vh-tags-wrap{display:flex;flex-wrap:wrap;gap:6px;min-height:24px}
+.vh-tag{background:rgba(196,82,26,0.15);border:1px solid rgba(196,82,26,0.32);border-radius:100px;padding:4px 11px;font-size:9.5px;font-weight:700;color:var(--rust-light);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap}
+
 /* FOOTER */
 .site-footer{border-top:1px solid var(--border);padding:20px 40px;margin-top:0}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px}

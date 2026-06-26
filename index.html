@@ -24,6 +24,7 @@
       <button class="nav-tab active" onclick="switchTab('builder')"><span class="nav-tab-num">01</span>Design Builder</button>
       <button class="nav-tab" onclick="switchTab('planner')"><span class="nav-tab-num">02</span>Gang Sheet Planner</button>
       <button class="nav-tab" onclick="switchTab('output')"><span class="nav-tab-num">03</span>Final Output</button>
+      <button class="nav-tab" onclick="switchTab('vintage')"><span class="nav-tab-num">04</span>Vintage Halftone</button>
     </div>
     <div class="nav-actions">
       <button class="btn-rand" onclick="randomize()">⚂ Randomize</button>
@@ -299,6 +300,145 @@
           <li><div class="ck ok">✓</div><span>Designs with bold outlines and solid colours transfer best on fabric</span></li>
           <li><div class="ck ok">✓</div><span>Save your AI prompt — you can regenerate variations anytime</span></li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 4: VINTAGE HALFTONE BUILDER ══ -->
+<div id="tab-vintage" class="page">
+
+  <div class="vh-hero">
+    <div class="vh-hero-bg"></div>
+    <p class="vh-eyebrow">Style Engine — 04</p>
+    <h2 class="vh-title">Vintage Halftone<br><span>Builder</span></h2>
+    <p class="vh-desc">Create authentic vintage screen-print DTF designs with halftone shading, distressed bitmap textures, and that washed concert-tee look. Every selection updates your prompt in real time.</p>
+    <div class="vh-badges">
+      <span class="badge">✦ Halftone Shading</span>
+      <span class="badge">✦ Distressed Bitmap</span>
+      <span class="badge">✦ Washed Ink Look</span>
+      <span class="badge">✦ Dark Garment Ready</span>
+      <span class="badge">✦ Live Prompt</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- CONTROLS -->
+    <div>
+      <div class="vh-subject-row">
+        <span class="vh-sub-label">Subject / description <span class="dn-opt">(optional — describe your design concept)</span></span>
+        <input type="text" class="dn-input" id="vh-subject" placeholder="e.g. eagle with banner, Afrofuturist warrior, skull and roses, vintage band graphic..." oninput="onVHSubject(this.value)">
+      </div>
+
+      <!-- 01 Halftone Type -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">01</span><span class="vh-g-name">HALFTONE TYPE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="vhg-halftoneType">
+          <button class="vh-pill active" data-val="dot"       onclick="setVH('halftoneType','dot')">Dot halftone</button>
+          <button class="vh-pill"        data-val="line"      onclick="setVH('halftoneType','line')">Line halftone</button>
+          <button class="vh-pill"        data-val="stipple"   onclick="setVH('halftoneType','stipple')">Stipple halftone</button>
+          <button class="vh-pill"        data-val="engraved"  onclick="setVH('halftoneType','engraved')">Engraved halftone</button>
+          <button class="vh-pill"        data-val="newspaper" onclick="setVH('halftoneType','newspaper')">Newspaper bitmap</button>
+        </div>
+        <p class="vh-hint" id="vh-hint-halftoneType">Circular dot matrix pattern — the classic screen-print halftone</p>
+      </div>
+
+      <!-- 02 Distress Level -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">02</span><span class="vh-g-name">DISTRESS LEVEL</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="vhg-distressLevel">
+          <button class="vh-pill"        data-val="clean"  onclick="setVH('distressLevel','clean')">Clean</button>
+          <button class="vh-pill"        data-val="light"  onclick="setVH('distressLevel','light')">Light distress</button>
+          <button class="vh-pill active" data-val="medium" onclick="setVH('distressLevel','medium')">Medium vintage distress</button>
+          <button class="vh-pill"        data-val="heavy"  onclick="setVH('distressLevel','heavy')">Heavy worn tee distress</button>
+        </div>
+        <p class="vh-hint" id="vh-hint-distressLevel">Faded edges, subtle print breakdown and aging texture</p>
+      </div>
+
+      <!-- 03 Ink Feel -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">03</span><span class="vh-g-name">INK FEEL</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="vhg-inkFeel">
+          <button class="vh-pill active" data-val="soft"    onclick="setVH('inkFeel','soft')">Soft washed ink</button>
+          <button class="vh-pill"        data-val="cracked" onclick="setVH('inkFeel','cracked')">Cracked vintage ink</button>
+          <button class="vh-pill"        data-val="faded"   onclick="setVH('inkFeel','faded')">Faded poster ink</button>
+          <button class="vh-pill"        data-val="heavy"   onclick="setVH('inkFeel','heavy')">Heavy screen print ink</button>
+        </div>
+        <p class="vh-hint" id="vh-hint-inkFeel">Gentle faded look — lightweight fashion feel</p>
+      </div>
+
+      <!-- 04 Garment Target -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">04</span><span class="vh-g-name">GARMENT TARGET</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="vhg-garmentTarget">
+          <button class="vh-pill vh-gp active" data-val="black"    onclick="setVH('garmentTarget','black')"    style="--gc:#111111">Black shirt</button>
+          <button class="vh-pill vh-gp"        data-val="charcoal" onclick="setVH('garmentTarget','charcoal')" style="--gc:#444444">Charcoal shirt</button>
+          <button class="vh-pill vh-gp"        data-val="white"    onclick="setVH('garmentTarget','white')"    style="--gc:#e8e8e8">White shirt</button>
+          <button class="vh-pill vh-gp"        data-val="cream"    onclick="setVH('garmentTarget','cream')"    style="--gc:#f5ead8">Cream shirt</button>
+          <button class="vh-pill vh-gp"        data-val="colored"  onclick="setVH('garmentTarget','colored')"  style="--gc:#1565C0">Colored garment</button>
+        </div>
+        <p class="vh-hint" id="vh-hint-garmentTarget">Black shirt — dark garment ready, high contrast artwork</p>
+      </div>
+
+      <!-- 05 Color Mode -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">05</span><span class="vh-g-name">COLOR MODE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="vhg-colorMode">
+          <button class="vh-pill active" data-val="sepia"     onclick="setVH('colorMode','sepia')">Sepia gold</button>
+          <button class="vh-pill"        data-val="cream"     onclick="setVH('colorMode','cream')">Cream and black</button>
+          <button class="vh-pill"        data-val="mono"      onclick="setVH('colorMode','mono')">Faded monochrome</button>
+          <button class="vh-pill"        data-val="redcream"  onclick="setVH('colorMode','redcream')">Washed red and cream</button>
+          <button class="vh-pill"        data-val="charcoal"  onclick="setVH('colorMode','charcoal')">Charcoal and bone</button>
+          <button class="vh-pill"        data-val="fullcolor" onclick="setVH('colorMode','fullcolor')">Vintage full color</button>
+        </div>
+        <p class="vh-hint" id="vh-hint-colorMode">Warm aged brown tones — aged paper and sepia gold</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sc">
+        <div class="sh"><span class="st">Active style</span><div class="sdot"></div></div>
+        <div class="sel-body">
+          <div id="vh-tags" class="vh-tags-wrap"><p class="sel-empty">Select options to see your style take shape...</p></div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">Vintage prompt</span></div>
+        <div class="pb">
+          <p class="ph">Live-updating DTF prompt — paste into Midjourney, DALL·E, Firefly, or any AI image tool.</p>
+          <textarea class="pta" id="vh-prompt-out" readonly placeholder="Your vintage halftone prompt will appear here..."></textarea>
+          <div class="pbtns">
+            <button class="btn-gen" onclick="copyVHPrompt()">⧉ Copy prompt</button>
+            <button class="btn-dl-sm" onclick="downloadVHPrompt()" title="Download .txt">↓</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">Garment preview</span><span class="sh-hint" id="vh-garment-label">Black shirt</span></div>
+        <div class="mockup-body">
+          <div class="shirt-wrap">
+            <svg id="vh-shirt-svg" viewBox="0 0 200 225" xmlns="http://www.w3.org/2000/svg" width="100%">
+              <path id="vh-shirt-body" d="M 62,6 Q 100,32 138,6 L 196,54 L 160,67 L 160,218 L 40,218 L 40,67 L 4,54 Z" fill="#111111" stroke="rgba(232,184,75,0.2)" stroke-width="1.5"/>
+              <path d="M 62,6 Q 100,32 138,6" fill="none" stroke="rgba(232,184,75,0.1)" stroke-width="2"/>
+              <rect x="76" y="80" width="48" height="48" fill="rgba(196,82,26,0.38)" stroke="#e06030" stroke-width="1.5" stroke-dasharray="4 2" rx="3"/>
+              <text x="100" y="105" text-anchor="middle" font-size="5.5" fill="rgba(245,234,216,0.8)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.6">VINTAGE</text>
+              <text x="100" y="113" text-anchor="middle" font-size="5.5" fill="rgba(245,234,216,0.8)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.6">PRINT</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">Style notes</span></div>
+        <div class="tips-body">
+          <div><p class="tl">Halftone shading</p><p class="tt">Dot and line halftones mimic classic screen-print separation. AI renders these best with bold, high-contrast artwork.</p></div>
+          <div><p class="tl">Dark garment prints</p><p class="tt">For black or charcoal shirts, your artwork needs bright or light colours — avoid dark-on-dark designs.</p></div>
+          <div><p class="tl">Layer distress after</p><p class="tt">Generate clean halftone art first, then add distress texture in Photoshop or Procreate before DTF transfer.</p></div>
+          <div><p class="tl">Ink coverage</p><p class="tt">Heavy screen print = bold and opaque. Soft washed = lightweight feel, perfect for fashion-forward streetwear pieces.</p></div>
+        </div>
       </div>
     </div>
   </div>
