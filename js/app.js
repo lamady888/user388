@@ -917,10 +917,13 @@ function switchTab(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  const idx = ['builder', 'planner', 'output', 'vintage'].indexOf(name);
-  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  const idx = ['builder', 'planner', 'output', 'vintage', 'halftone'].indexOf(name);
+  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
   if (name === 'output') updateSheetOutput();
   if (name === 'vintage') initVintageTab();
+  if (name === 'halftone') {
+    if (typeof HalftoneProcessor !== 'undefined') HalftoneProcessor.init();
+  }
 }
 
 /* ─── TOAST ─── */

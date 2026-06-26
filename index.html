@@ -25,6 +25,7 @@
       <button class="nav-tab" onclick="switchTab('planner')"><span class="nav-tab-num">02</span>Gang Sheet Planner</button>
       <button class="nav-tab" onclick="switchTab('output')"><span class="nav-tab-num">03</span>Final Output</button>
       <button class="nav-tab" onclick="switchTab('vintage')"><span class="nav-tab-num">04</span>Vintage Halftone</button>
+      <button class="nav-tab" onclick="switchTab('halftone')"><span class="nav-tab-num">05</span>Halftone Processor</button>
     </div>
     <div class="nav-actions">
       <button class="btn-rand" onclick="randomize()">⚂ Randomize</button>
@@ -444,6 +445,228 @@
   </div>
 </div>
 
+<!-- ══ TAB 5: DTF HALFTONE PROCESSOR ══ -->
+<div id="tab-halftone" class="page">
+
+  <div class="ht-hero">
+    <div class="ht-hero-bg"></div>
+    <p class="ht-eyebrow">Image Processor — 05</p>
+    <h2 class="ht-title">DTF Halftone<br><span>Processor</span></h2>
+    <p class="ht-desc">Upload your PNG design and apply real halftone processing directly in the browser. Every slider actually affects the image. Export a transparent PNG ready for DTF printing.</p>
+    <div class="ht-badges">
+      <span class="badge">✦ Real Canvas Processing</span>
+      <span class="badge">✦ Live Preview</span>
+      <span class="badge">✦ 5 Halftone Types</span>
+      <span class="badge">✦ Dark Shirt Ready</span>
+      <span class="badge">✦ Transparent PNG Export</span>
+    </div>
+  </div>
+
+  <!-- UPLOAD AREA -->
+  <div id="ht-upload-area" class="ht-upload-area">
+    <input type="file" id="ht-file-input" accept="image/png,image/jpeg,image/webp" style="display:none">
+    <div class="ht-upload-icon">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="46" height="46" rx="10" stroke="rgba(232,184,75,0.3)" stroke-width="2" stroke-dasharray="6 4"/>
+        <path d="M24 30V18M24 18L19 23M24 18L29 23" stroke="rgba(232,184,75,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 34h16" stroke="rgba(232,184,75,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="ht-upload-title">Drop your design here</p>
+    <p class="ht-upload-sub">PNG, JPG or WebP — click to browse</p>
+    <p class="ht-upload-hint">Works best with high-contrast artwork on a transparent or white background</p>
+  </div>
+
+  <!-- PROCESSOR UI (hidden until image loaded) -->
+  <div id="ht-processor-ui" style="display:none">
+
+    <!-- PREVIEWS -->
+    <div class="ht-previews">
+      <div class="ht-preview-panel">
+        <div class="ht-preview-label">Original</div>
+        <div class="ht-canvas-wrap ht-canvas-checker">
+          <canvas id="ht-orig-canvas"></canvas>
+        </div>
+      </div>
+      <div class="ht-preview-panel">
+        <div class="ht-preview-label">Halftone processed</div>
+        <div class="ht-canvas-wrap ht-canvas-checker">
+          <canvas id="ht-out-canvas"></canvas>
+        </div>
+      </div>
+      <div class="ht-preview-panel">
+        <div class="ht-preview-label">Shirt preview</div>
+        <div class="ht-canvas-wrap">
+          <canvas id="ht-shirt-canvas"></canvas>
+        </div>
+        <div class="ht-garment-btns">
+          <button class="ht-garment-btn active" data-color="#111111" style="background:#111111" title="Black"></button>
+          <button class="ht-garment-btn" data-color="#EFEFEF" style="background:#EFEFEF;border-color:rgba(100,100,100,0.4)" title="White"></button>
+          <button class="ht-garment-btn" data-color="#6E6E6E" style="background:#6E6E6E" title="Grey"></button>
+          <button class="ht-garment-btn" data-color="#1A237E" style="background:#1A237E" title="Navy"></button>
+          <button class="ht-garment-btn" data-color="#C62828" style="background:#C62828" title="Red"></button>
+          <button class="ht-garment-btn" data-color="#2E7D32" style="background:#2E7D32" title="Forest"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS GRID -->
+    <div class="ht-controls-grid">
+
+      <!-- LEFT: HALFTONE SETTINGS -->
+      <div class="ht-ctrl-panel">
+        <div class="ht-ctrl-head"><span class="ht-ctrl-num">01</span><span class="ht-ctrl-title">HALFTONE SETTINGS</span></div>
+
+        <div class="ht-ctrl-row">
+          <label class="ht-ctrl-label">Halftone type</label>
+          <select class="ht-select" id="ht-type">
+            <option value="dot">Dot halftone</option>
+            <option value="line">Line halftone</option>
+            <option value="newspaper">Newspaper bitmap</option>
+            <option value="engraved">Engraved lines</option>
+            <option value="stipple">Stipple texture</option>
+          </select>
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">LPI (lines per inch)</label>
+            <span class="ht-slider-val" id="ht-lpi-val">35</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-lpi" min="10" max="85" step="1" value="35">
+          <div class="ht-slider-range"><span>10 — coarse</span><span>85 — fine</span></div>
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">Dot angle</label>
+            <span class="ht-slider-val" id="ht-angle-val">22.5°</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-angle" min="0" max="90" step="0.5" value="22.5">
+          <div class="ht-slider-range"><span>0°</span><span>90°</span></div>
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">Softness</label>
+            <span class="ht-slider-val" id="ht-softness-val">45%</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-softness" min="0" max="100" step="1" value="45">
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">Ink gain / spread</label>
+            <span class="ht-slider-val" id="ht-gain-val">40%</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-gain" min="0" max="100" step="1" value="40">
+        </div>
+      </div>
+
+      <!-- MIDDLE: DTF DARK SHIRT CONTROLS -->
+      <div class="ht-ctrl-panel">
+        <div class="ht-ctrl-head"><span class="ht-ctrl-num">02</span><span class="ht-ctrl-title">DTF DARK SHIRT</span></div>
+
+        <div class="ht-toggle-row">
+          <label class="ht-toggle-label">White ink underbase</label>
+          <label class="ht-toggle-switch">
+            <input type="checkbox" id="ht-underbase" checked>
+            <span class="ht-toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">Black removal</label>
+            <span class="ht-slider-val" id="ht-black-removal-val">30%</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-black-removal" min="0" max="80" step="1" value="30">
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">Midtone detail</label>
+            <span class="ht-slider-val" id="ht-midtone-val">50%</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-midtone" min="0" max="100" step="1" value="50">
+        </div>
+
+        <div class="ht-ctrl-row">
+          <div class="ht-slider-head">
+            <label class="ht-ctrl-label">White ink strength</label>
+            <span class="ht-slider-val" id="ht-white-strength-val">80%</span>
+          </div>
+          <input type="range" class="ht-slider" id="ht-white-strength" min="20" max="100" step="1" value="80">
+        </div>
+
+        <div class="ht-toggle-row">
+          <label class="ht-toggle-label">Cleanup filter (remove dust pixels)</label>
+          <label class="ht-toggle-switch">
+            <input type="checkbox" id="ht-cleanup" checked>
+            <span class="ht-toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="ht-toggle-row">
+          <label class="ht-toggle-label">Transparent background</label>
+          <label class="ht-toggle-switch">
+            <input type="checkbox" id="ht-transparent" checked>
+            <span class="ht-toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- RIGHT: COLOR TONE + PRINT SIZE + EXPORT -->
+      <div class="ht-ctrl-panel">
+        <div class="ht-ctrl-head"><span class="ht-ctrl-num">03</span><span class="ht-ctrl-title">COLOUR TONE</span></div>
+
+        <div class="ht-color-pills">
+          <button class="ht-color-pill active" data-mode="original">Keep original</button>
+          <button class="ht-color-pill" data-mode="cream">Cream &amp; black</button>
+          <button class="ht-color-pill" data-mode="sepia">Sepia gold</button>
+          <button class="ht-color-pill" data-mode="charcoal">Charcoal &amp; bone</button>
+          <button class="ht-color-pill" data-mode="vintage">Washed vintage</button>
+          <button class="ht-color-pill" data-mode="mono">Monochrome</button>
+        </div>
+
+        <div class="ht-ctrl-head" style="margin-top:22px"><span class="ht-ctrl-num">04</span><span class="ht-ctrl-title">FINAL PRINT SIZE</span></div>
+
+        <div class="ht-size-row">
+          <div class="ht-size-field">
+            <label class="ht-ctrl-label">Width (inches)</label>
+            <input type="number" class="ht-input" id="ht-print-w" value="12" min="1" max="24" step="0.5">
+          </div>
+          <div class="ht-size-x">×</div>
+          <div class="ht-size-field">
+            <label class="ht-ctrl-label">Height (inches)</label>
+            <input type="number" class="ht-input" id="ht-print-h" value="12" min="1" max="24" step="0.5">
+          </div>
+          <div class="ht-size-field">
+            <label class="ht-ctrl-label">DPI</label>
+            <select class="ht-select" id="ht-dpi">
+              <option value="150">150</option>
+              <option value="300" selected>300</option>
+              <option value="600">600</option>
+            </select>
+          </div>
+        </div>
+        <div class="ht-px-dims" id="ht-px-dims">— select size and DPI</div>
+
+        <div class="ht-ctrl-head" style="margin-top:22px"><span class="ht-ctrl-num">05</span><span class="ht-ctrl-title">EXPORT</span></div>
+
+        <div class="ht-export-btns">
+          <button class="ht-export-main" id="ht-export-png">↓ Transparent PNG (DTF ready)</button>
+          <button class="ht-export-sec" id="ht-export-shirt">↓ Shirt preview JPG</button>
+          <button class="ht-export-sec" id="ht-export-brief">↓ Print brief .txt</button>
+          <button class="ht-export-sec" id="ht-copy-settings">⧉ Copy printer settings</button>
+          <button class="ht-export-danger" id="ht-reset-image">✕ Remove image</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -457,5 +680,6 @@
 <div id="toast-container" class="toast-container"></div>
 
 <script src="js/app.js"></script>
+<script src="js/halftone.js"></script>
 </body>
 </html>
