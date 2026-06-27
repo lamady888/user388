@@ -2,684 +2,357 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="description" content="Build AI-ready prompts for DTF printing. Plan your gang sheet, generate print briefs, and send straight to your DTF printer.">
-<meta property="og:title" content="DTF Gang Sheet Studio">
-<meta property="og:description" content="AI prompt builder for DTF printing. Design, plan, print.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Erana Unfiltered — A documentary series about postpartum depression, maternal mental health, and the real stories of new motherhood. No Judgment. No Shame. Just Real Conversations.">
+<meta property="og:title" content="Erana Unfiltered — Postpartum Documentary Series">
+<meta property="og:description" content="No Judgment. No Shame. Just Real Conversations. Watch the documentary series on YouTube @EranaUnfiltered.">
 <meta property="og:type" content="website">
-<title>DTF Gang Sheet Studio</title>
+<title>Erana Unfiltered — Postpartum Documentary Series</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="kente-bar"></div>
-
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <div class="nav-brand">DTF<span>Studio</span></div>
-    <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('builder')"><span class="nav-tab-num">01</span>Design Builder</button>
-      <button class="nav-tab" onclick="switchTab('planner')"><span class="nav-tab-num">02</span>Gang Sheet Planner</button>
-      <button class="nav-tab" onclick="switchTab('output')"><span class="nav-tab-num">03</span>Final Output</button>
-      <button class="nav-tab" onclick="switchTab('vintage')"><span class="nav-tab-num">04</span>Vintage Halftone</button>
-      <button class="nav-tab" onclick="switchTab('halftone')"><span class="nav-tab-num">05</span>Halftone Processor</button>
+    <div class="nav-brand">Erana<span>Unfiltered</span></div>
+    <div class="nav-links">
+      <a href="#series" class="nav-link">The Series</a>
+      <a href="#episodes" class="nav-link">Episodes</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#resources" class="nav-link">Resources</a>
     </div>
-    <div class="nav-actions">
-      <button class="btn-rand" onclick="randomize()">⚂ Randomize</button>
-      <button class="btn-rst" onclick="resetAll()">↺ Reset</button>
-    </div>
+    <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="nav-subscribe">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.4 12 20.4 12 20.4s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+      Subscribe
+    </a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
+<section class="hero" id="home">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
   <div class="hero-inner">
-    <div>
-      <p class="hero-eyebrow">DTF Gang Sheet Studio</p>
-      <h1 class="hero-title">
-        Design.
-        <span class="accent">Plan.</span>
-        <span class="accent2">Print.</span>
-      </h1>
-      <p class="hero-desc">Build AI-ready prompts for any DTF design — characters, patterns, quotes, logos, cultural art — then plan your gang sheet and send it straight to print.</p>
-      <div class="hero-badges">
-        <span class="badge">✦ Transparent PNG</span>
-        <span class="badge">✦ 300 DPI Ready</span>
-        <span class="badge">✦ Gang Sheet Planner</span>
-        <span class="badge">✦ Print Brief Generator</span>
-        <span class="badge">✦ Auto-Save</span>
-      </div>
+    <div class="hero-badge">Documentary Series · Season One · 2025</div>
+    <h1 class="hero-title">
+      <span class="hero-title-pre">Erana</span>
+      <span class="hero-title-main">Unfiltered</span>
+    </h1>
+    <p class="hero-tagline">No Judgment. No Shame.<br><em>Just Real Conversations.</em></p>
+    <p class="hero-desc">A documentary series exploring postpartum depression, maternal mental health, and the silent battles of new motherhood — through the unfiltered voices of mothers who've lived it.</p>
+    <div class="hero-actions">
+      <a href="#episodes" class="btn-primary">Watch the Series</a>
+      <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="btn-ghost">@EranaUnfiltered on YouTube</a>
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n" id="stat-designs">0</div><div class="hstat-l">Designs</div></div>
-      <div class="hstat"><div class="hstat-n" id="stat-fill">0%</div><div class="hstat-l">Sheet used</div></div>
-      <div class="hstat"><div class="hstat-n" id="stat-prompts">0</div><div class="hstat-l">Prompts saved</div></div>
+    <div class="hero-tags">
+      <span>#MotherhoodUnfiltered</span>
+      <span>#PostpartumAwareness</span>
+      <span>#MentalHealthMatters</span>
+      <span>#NewMomSupport</span>
     </div>
   </div>
-</div>
-
-<!-- ══ TAB 1: DESIGN BUILDER ══ -->
-<div id="tab-builder" class="page active">
-  <div class="design-name-row">
-    <div class="dn-inner">
-      <span class="dn-label">Design name <span class="dn-opt">(optional — adds context to your prompt)</span></span>
-      <input type="text" class="dn-input" id="design-name" placeholder="e.g. Igbo Queen Vol 1, Summer Drop 2025, Memorial Tee..." oninput="onDesignNameChange()">
-    </div>
-    <div class="autosave-ind" id="autosave-ind">
-      <div class="as-dot" id="as-dot"></div>
-      <span class="as-label" id="as-label">Auto-saved</span>
-    </div>
+  <div class="hero-scroll">
+    <div class="scroll-dot"></div>
+    <div class="scroll-line"></div>
   </div>
+</section>
 
-  <div class="two-col">
-    <div id="form-col"></div>
-    <div class="sidebar">
-      <div class="sc">
-        <div class="sh"><span class="st">Design preview</span><div class="sdot"></div></div>
-        <div class="sel-body" id="sel-list"><p class="sel-empty">Start selecting to see your design take shape...</p></div>
+<!-- SERIES INTRO -->
+<section class="series-intro" id="series">
+  <div class="section-inner">
+    <div class="intro-grid">
+      <div class="intro-left">
+        <p class="eyebrow">The Documentary Series</p>
+        <h2 class="section-title">Motherhood is beautiful.<br><em>It's also hard.</em></h2>
+        <p class="intro-body">If you've ever struggled with postpartum depression, anxiety, or the silent battles of motherhood — <strong>you are not alone.</strong></p>
+        <p class="intro-body">Erana Unfiltered is a six-episode documentary series that goes beyond the picture-perfect moments of new motherhood to explore the raw, honest truth that so many mothers experience but rarely say out loud.</p>
+        <p class="intro-body">We talk to mothers, partners, mental health professionals, and maternal care experts — because the more we speak, the less alone we all become.</p>
+        <div class="pillars">
+          <div class="pillar"><div class="pillar-dot"></div>Postpartum Depression & Maternal Mental Health</div>
+          <div class="pillar"><div class="pillar-dot"></div>Real Stories from Mothers Like You</div>
+          <div class="pillar"><div class="pillar-dot"></div>Expert Advice & Coping Strategies</div>
+          <div class="pillar"><div class="pillar-dot"></div>Breaking the Stigma Around Motherhood Struggles</div>
+        </div>
       </div>
-      <div class="sc">
-        <div class="sh"><span class="st">AI prompt</span></div>
-        <div class="pb">
-          <p class="ph">Hit Generate — then paste into Midjourney, DALL·E, Adobe Firefly, or any AI image tool.</p>
-          <textarea class="pta" id="prompt-out" readonly placeholder="Your DTF-ready prompt will appear here..."></textarea>
-          <div class="pbtns">
-            <button class="btn-gen" id="gen-btn" onclick="generatePrompt()">Generate prompt</button>
-            <button class="btn-cp" id="copy-btn" onclick="copyPrompt()">⧉ Copy</button>
-            <button class="btn-dl-sm" onclick="downloadPrompt()" title="Download .txt">↓</button>
+      <div class="intro-right">
+        <div class="quote-card">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">I didn't know what was wrong with me. I just knew this wasn't what I expected motherhood to feel like. And I thought — why is no one talking about this?</p>
+          <p class="quote-attr">— A mother's voice, Episode 01</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">1 in 5</div>
+            <div class="stat-label">mothers experience postpartum depression or anxiety</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">50%</div>
+            <div class="stat-label">of cases go undiagnosed or without treatment</div>
           </div>
         </div>
-      </div>
-      <!-- GARMENT MOCKUP -->
-      <div class="sc">
-        <div class="sh">
-          <span class="st">Garment mockup</span>
-          <span class="sh-hint" id="placement-hint">chest centre</span>
-        </div>
-        <div class="mockup-body">
-          <div class="swatch-row">
-            <span class="swatch-lbl">Shirt colour</span>
-            <div class="swatches" id="swatches"></div>
+        <div class="platforms-card">
+          <p class="platforms-label">Watch & listen on</p>
+          <div class="platforms-row">
+            <span class="platform-badge">YouTube</span>
+            <span class="platform-badge">Spotify</span>
+            <span class="platform-badge">Apple Podcasts</span>
           </div>
-          <div class="shirt-wrap">
-            <svg id="shirt-svg" viewBox="0 0 200 225" xmlns="http://www.w3.org/2000/svg" width="100%">
-              <!-- shirt silhouette -->
-              <path id="shirt-body" d="M 62,6 Q 100,32 138,6 L 196,54 L 160,67 L 160,218 L 40,218 L 40,67 L 4,54 Z" fill="#111111" stroke="rgba(232,184,75,0.2)" stroke-width="1.5"/>
-              <!-- collar highlight -->
-              <path d="M 62,6 Q 100,32 138,6" fill="none" stroke="rgba(232,184,75,0.15)" stroke-width="2"/>
-              <!-- design placement zone -->
-              <rect id="pl-rect" x="76" y="80" width="48" height="48" fill="rgba(196,82,26,0.45)" stroke="#e06030" stroke-width="1.5" stroke-dasharray="4 2" rx="3"/>
-              <text id="pl-text" x="100" y="108" text-anchor="middle" font-size="6.5" fill="rgba(245,234,216,0.85)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.8">CHEST CENTRE</text>
-            </svg>
-          </div>
-          <div class="mockup-dpi" id="mockup-dpi">— select a placement</div>
-        </div>
-      </div>
-
-      <div class="sc">
-        <div class="sh">
-          <span class="st">Prompt history</span>
-          <button class="hist-clear-btn" onclick="clearHistory()">Clear all</button>
-        </div>
-        <div class="sel-body" id="hist-list"><p class="sel-empty">No prompts generated yet.</p></div>
-      </div>
-      <div class="sc">
-        <div class="sh"><span class="st">DTF tips</span></div>
-        <div class="tips-body">
-          <div><p class="tl">Always transparent</p><p class="tt">DTF prints need transparent PNG — locked into every prompt automatically.</p></div>
-          <div><p class="tl">Bold outlines win</p><p class="tt">Strong outlines and solid colours transfer cleaner than soft gradients on fabric.</p></div>
-          <div><p class="tl">300 DPI minimum</p><p class="tt">Always upscale to 300 DPI before sending to your DTF printer.</p></div>
-          <div><p class="tl">Plan your sheet</p><p class="tt">Head to Tab 02 to layout your gang sheet and maximise every inch.</p></div>
+          <p class="platforms-freq">New episodes every week</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ══ TAB 2: GANG SHEET PLANNER ══ -->
-<div id="tab-planner" class="page">
-  <div class="planner-top">
-    <div class="panel">
-      <p class="panel-title">Sheet settings</p>
-      <div class="prow">
-        <span class="plabel">Sheet size</span>
-        <select class="pselect" id="sheet-size" onchange="updateSheet()">
-          <option value="22x30">22" × 30" (standard)</option>
-          <option value="22x60">22" × 60" (large)</option>
-          <option value="22x120">22" × 120" (jumbo)</option>
-          <option value="13x19">13" × 19" (small)</option>
-          <option value="custom">Custom size</option>
-        </select>
-      </div>
-      <div class="prow" id="custom-size-row" style="display:none">
-        <span class="plabel">Custom width × height (inches)</span>
-        <div style="display:flex;gap:8px">
-          <input class="pinput" id="cw" type="number" placeholder="Width" value="22" min="1" oninput="updateSheet()">
-          <input class="pinput" id="ch" type="number" placeholder="Height" value="30" min="1" oninput="updateSheet()">
+<!-- EPISODES -->
+<section class="episodes-section" id="episodes">
+  <div class="section-inner">
+    <p class="eyebrow">Season One · Six Episodes</p>
+    <h2 class="section-title">The Documentary</h2>
+    <p class="section-sub">Each episode goes deeper into one dimension of the postpartum experience. Subscribe so you never miss a story.</p>
+
+    <div class="episodes-grid">
+
+      <!-- EP 01 FEATURED -->
+      <div class="ep-card ep-featured">
+        <div class="ep-header">
+          <span class="ep-num">EP. 01</span>
+          <span class="ep-live-badge">Now Streaming</span>
         </div>
-      </div>
-      <div class="prow">
-        <span class="plabel">Resolution</span>
-        <select class="pselect" id="sheet-dpi">
-          <option value="300">300 DPI (standard)</option>
-          <option value="600">600 DPI (high quality)</option>
-        </select>
-      </div>
-      <div class="prow">
-        <span class="plabel">Gap between designs</span>
-        <select class="pselect" id="sheet-gap" onchange="updateSheet()">
-          <option value="0.25">0.25" (tight)</option>
-          <option value="0.5" selected>0.5" (standard)</option>
-          <option value="1">1" (generous)</option>
-        </select>
-      </div>
-    </div>
-    <div class="panel">
-      <p class="panel-title">Add a design</p>
-      <div class="prow">
-        <span class="plabel">Quick presets</span>
-        <div id="nd-presets" class="nd-presets"></div>
-      </div>
-      <div class="prow">
-        <span class="plabel">Design name</span>
-        <input class="pinput" id="nd-name" placeholder="e.g. Igbo queen chest print" type="text">
-      </div>
-      <div class="prow">
-        <span class="plabel">Width (inches)</span>
-        <select class="pselect" id="nd-w">
-          <option value="2">2" — tag / small pocket</option>
-          <option value="3">3" — pocket print</option>
-          <option value="4">4" — small chest</option>
-          <option value="5">5" — medium chest</option>
-          <option value="6" selected>6" — standard chest</option>
-          <option value="8">8" — large chest</option>
-          <option value="10">10" — full front</option>
-          <option value="12">12" — oversized</option>
-          <option value="14">14" — full back</option>
-        </select>
-      </div>
-      <div class="prow">
-        <span class="plabel">Height (inches)</span>
-        <select class="pselect" id="nd-h">
-          <option value="2">2"</option><option value="3">3"</option>
-          <option value="4">4"</option><option value="5">5"</option>
-          <option value="6" selected>6"</option><option value="8">8"</option>
-          <option value="10">10"</option><option value="12">12"</option>
-          <option value="14">14"</option>
-        </select>
-      </div>
-      <div class="prow">
-        <span class="plabel">Quantity</span>
-        <select class="pselect" id="nd-qty">
-          <option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-          <option value="5">5</option><option value="6">6</option>
-          <option value="8">8</option><option value="10">10</option>
-        </select>
-      </div>
-      <button class="add-btn" onclick="addDesign()">＋ Add to sheet</button>
-    </div>
-  </div>
-
-  <div class="design-list-panel">
-    <p class="panel-title">Designs on sheet</p>
-    <div id="design-list"><p class="empty-list">No designs added yet.</p></div>
-  </div>
-
-  <div class="preview-panel">
-    <p class="panel-title">Sheet preview <span>Visual approximation — not to scale</span></p>
-    <div class="canvas-outer"><div id="sheet-canvas"></div></div>
-  </div>
-
-  <div class="summary-panel">
-    <p class="sum-title">Sheet summary</p>
-    <div class="sum-rows">
-      <div class="sum-row"><span class="sum-k">Sheet size</span><span class="sum-v" id="sum-size">22" × 30"</span></div>
-      <div class="sum-row"><span class="sum-k">Total designs</span><span class="sum-v" id="sum-total">0</span></div>
-      <div class="sum-row"><span class="sum-k">Design area used</span><span class="sum-v" id="sum-area">0 sq in</span></div>
-      <div class="sum-row"><span class="sum-k">Sheet area</span><span class="sum-v" id="sum-sheet">660 sq in</span></div>
-      <div class="sum-row"><span class="sum-k">Sheet filled</span><span class="sum-v" id="sum-pct">0%</span></div>
-    </div>
-    <p class="sum-msg sum-ok" id="sum-msg">Add designs to start planning your sheet.</p>
-  </div>
-
-  <div class="action-row">
-    <button class="act-main" onclick="switchTab('output')">→ Go to Final Output</button>
-    <button class="act-sec" onclick="downloadBrief()">↓ Download brief</button>
-    <button class="act-sec" onclick="clearSheet()">Clear sheet</button>
-  </div>
-</div>
-
-<!-- ══ TAB 3: FINAL OUTPUT ══ -->
-<div id="tab-output" class="page">
-  <div class="out-grid">
-    <div class="out-card">
-      <div class="out-head">
-        <p class="out-title">AI design prompt</p>
-        <p class="out-sub">Paste into Midjourney, DALL·E, Adobe Firefly, or any AI image tool</p>
-      </div>
-      <div class="out-body">
-        <textarea class="out-ta" id="out-prompt" readonly placeholder="Generate your prompt in Tab 01 first..."></textarea>
-        <div class="out-btns">
-          <button class="out-btn-m" onclick="copyEl('out-prompt',this)">⧉ Copy prompt</button>
-          <button class="out-btn-s" onclick="downloadPrompt()">↓ Download .txt</button>
-          <button class="out-btn-s" onclick="switchTab('builder')">← Edit design</button>
+        <h3 class="ep-title">The Silence</h3>
+        <p class="ep-desc">What postpartum depression really looks like — and why so many mothers suffer in silence. We open the conversation that should have happened years ago. Real stories, raw truth, no filter.</p>
+        <div class="ep-topics">
+          <span>PPD Signs & Symptoms</span>
+          <span>Isolation in Motherhood</span>
+          <span>Breaking the Silence</span>
         </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-primary">Watch Episode 01 →</a>
       </div>
-    </div>
-    <div class="out-card">
-      <div class="out-head">
-        <p class="out-title">Gang sheet print brief</p>
-        <p class="out-sub">Send this to your DTF printer or use as your print file brief</p>
-      </div>
-      <div class="out-body">
-        <textarea class="out-ta" id="out-sheet" readonly placeholder="Plan your sheet in Tab 02 first..."></textarea>
-        <div class="out-btns">
-          <button class="out-btn-m" onclick="copyEl('out-sheet',this)">⧉ Copy brief</button>
-          <button class="out-btn-s" onclick="downloadBrief()">↓ Download .txt</button>
-          <button class="out-btn-s" onclick="switchTab('planner')">← Edit sheet</button>
+
+      <!-- EP 02 -->
+      <div class="ep-card">
+        <div class="ep-header">
+          <span class="ep-num">EP. 02</span>
         </div>
+        <h3 class="ep-title">The Pressure</h3>
+        <p class="ep-desc">Society's impossible expectations of new mothers — and the weight of the "perfect mother" myth on women's mental health.</p>
+        <div class="ep-topics">
+          <span>Social Pressure</span>
+          <span>Identity</span>
+          <span>Mom Guilt</span>
+        </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-outline">Watch Episode →</a>
       </div>
+
+      <!-- EP 03 -->
+      <div class="ep-card">
+        <div class="ep-header">
+          <span class="ep-num">EP. 03</span>
+        </div>
+        <h3 class="ep-title">The Turning Point</h3>
+        <p class="ep-desc">Recognising the signs, asking for help, and the moment everything began to shift. Stories of courage from mothers who took the first step.</p>
+        <div class="ep-topics">
+          <span>Recognising PPD</span>
+          <span>Seeking Help</span>
+          <span>Therapy</span>
+        </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-outline">Watch Episode →</a>
+      </div>
+
+      <!-- EP 04 -->
+      <div class="ep-card">
+        <div class="ep-header">
+          <span class="ep-num">EP. 04</span>
+        </div>
+        <h3 class="ep-title">The Village</h3>
+        <p class="ep-desc">Partners, families, and the support systems that make a difference. What it truly means to show up for a mother who is struggling.</p>
+        <div class="ep-topics">
+          <span>Partner Support</span>
+          <span>Family</span>
+          <span>Community</span>
+        </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-outline">Watch Episode →</a>
+      </div>
+
+      <!-- EP 05 -->
+      <div class="ep-card">
+        <div class="ep-header">
+          <span class="ep-num">EP. 05</span>
+        </div>
+        <h3 class="ep-title">The Experts Speak</h3>
+        <p class="ep-desc">Mental health professionals, OBGYNs, and maternal care specialists share what the science says — and what needs to change in how we care for new mothers.</p>
+        <div class="ep-topics">
+          <span>Expert Interviews</span>
+          <span>Research</span>
+          <span>Treatment</span>
+        </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-outline">Watch Episode →</a>
+      </div>
+
+      <!-- EP 06 -->
+      <div class="ep-card">
+        <div class="ep-header">
+          <span class="ep-num">EP. 06</span>
+        </div>
+        <h3 class="ep-title">You Are Not Alone</h3>
+        <p class="ep-desc">The series finale. Voices from across the journey, a community of mothers who made it through — and a message of hope for every woman watching.</p>
+        <div class="ep-topics">
+          <span>Recovery</span>
+          <span>Hope</span>
+          <span>Community</span>
+        </div>
+        <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="ep-btn ep-btn-outline">Watch Episode →</a>
+      </div>
+
     </div>
-    <div class="out-card" style="grid-column:1/-1">
-      <div class="out-head">
-        <p class="out-title">Pre-print checklist</p>
-        <p class="out-sub">Run through before sending to your DTF printer</p>
-      </div>
-      <div class="out-body">
-        <ul class="checklist">
-          <li><div class="ck ok">✓</div><span>Background is transparent PNG — not white or solid colour</span></li>
-          <li><div class="ck ok">✓</div><span>Resolution is 300 DPI or higher</span></li>
-          <li><div class="ck ok">✓</div><span>File saved as PNG with alpha channel (transparency) — not JPG</span></li>
-          <li><div class="ck ok">✓</div><span>Colour mode is RGB for DTF printing</span></li>
-          <li><div class="ck warn">!</div><span>Check design dimensions match your intended placement (chest, back, sleeve, pocket)</span></li>
-          <li><div class="ck warn">!</div><span>Minimum 0.25" gap between all designs on gang sheet for cutting</span></li>
-          <li><div class="ck warn">!</div><span>Confirm sheet size and orientation with your printer before uploading</span></li>
-          <li><div class="ck ok">✓</div><span>Designs with bold outlines and solid colours transfer best on fabric</span></li>
-          <li><div class="ck ok">✓</div><span>Save your AI prompt — you can regenerate variations anytime</span></li>
-        </ul>
-      </div>
+
+    <div class="subscribe-nudge">
+      <p>New episodes drop every week. Don't miss a story.</p>
+      <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="btn-primary">Subscribe & Turn On Notifications</a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ══ TAB 4: VINTAGE HALFTONE BUILDER ══ -->
-<div id="tab-vintage" class="page">
-
-  <div class="vh-hero">
-    <div class="vh-hero-bg"></div>
-    <p class="vh-eyebrow">Style Engine — 04</p>
-    <h2 class="vh-title">Vintage Halftone<br><span>Builder</span></h2>
-    <p class="vh-desc">Create authentic vintage screen-print DTF designs with halftone shading, distressed bitmap textures, and that washed concert-tee look. Every selection updates your prompt in real time.</p>
-    <div class="vh-badges">
-      <span class="badge">✦ Halftone Shading</span>
-      <span class="badge">✦ Distressed Bitmap</span>
-      <span class="badge">✦ Washed Ink Look</span>
-      <span class="badge">✦ Dark Garment Ready</span>
-      <span class="badge">✦ Live Prompt</span>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <!-- CONTROLS -->
-    <div>
-      <div class="vh-subject-row">
-        <span class="vh-sub-label">Subject / description <span class="dn-opt">(optional — describe your design concept)</span></span>
-        <input type="text" class="dn-input" id="vh-subject" placeholder="e.g. eagle with banner, Afrofuturist warrior, skull and roses, vintage band graphic..." oninput="onVHSubject(this.value)">
-      </div>
-
-      <!-- 01 Halftone Type -->
-      <div class="vh-group">
-        <div class="vh-group-head"><span class="vh-g-num">01</span><span class="vh-g-name">HALFTONE TYPE</span><div class="vh-g-rule"></div></div>
-        <div class="vh-pills" id="vhg-halftoneType">
-          <button class="vh-pill active" data-val="dot"       onclick="setVH('halftoneType','dot')">Dot halftone</button>
-          <button class="vh-pill"        data-val="line"      onclick="setVH('halftoneType','line')">Line halftone</button>
-          <button class="vh-pill"        data-val="stipple"   onclick="setVH('halftoneType','stipple')">Stipple halftone</button>
-          <button class="vh-pill"        data-val="engraved"  onclick="setVH('halftoneType','engraved')">Engraved halftone</button>
-          <button class="vh-pill"        data-val="newspaper" onclick="setVH('halftoneType','newspaper')">Newspaper bitmap</button>
-        </div>
-        <p class="vh-hint" id="vh-hint-halftoneType">Circular dot matrix pattern — the classic screen-print halftone</p>
-      </div>
-
-      <!-- 02 Distress Level -->
-      <div class="vh-group">
-        <div class="vh-group-head"><span class="vh-g-num">02</span><span class="vh-g-name">DISTRESS LEVEL</span><div class="vh-g-rule"></div></div>
-        <div class="vh-pills" id="vhg-distressLevel">
-          <button class="vh-pill"        data-val="clean"  onclick="setVH('distressLevel','clean')">Clean</button>
-          <button class="vh-pill"        data-val="light"  onclick="setVH('distressLevel','light')">Light distress</button>
-          <button class="vh-pill active" data-val="medium" onclick="setVH('distressLevel','medium')">Medium vintage distress</button>
-          <button class="vh-pill"        data-val="heavy"  onclick="setVH('distressLevel','heavy')">Heavy worn tee distress</button>
-        </div>
-        <p class="vh-hint" id="vh-hint-distressLevel">Faded edges, subtle print breakdown and aging texture</p>
-      </div>
-
-      <!-- 03 Ink Feel -->
-      <div class="vh-group">
-        <div class="vh-group-head"><span class="vh-g-num">03</span><span class="vh-g-name">INK FEEL</span><div class="vh-g-rule"></div></div>
-        <div class="vh-pills" id="vhg-inkFeel">
-          <button class="vh-pill active" data-val="soft"    onclick="setVH('inkFeel','soft')">Soft washed ink</button>
-          <button class="vh-pill"        data-val="cracked" onclick="setVH('inkFeel','cracked')">Cracked vintage ink</button>
-          <button class="vh-pill"        data-val="faded"   onclick="setVH('inkFeel','faded')">Faded poster ink</button>
-          <button class="vh-pill"        data-val="heavy"   onclick="setVH('inkFeel','heavy')">Heavy screen print ink</button>
-        </div>
-        <p class="vh-hint" id="vh-hint-inkFeel">Gentle faded look — lightweight fashion feel</p>
-      </div>
-
-      <!-- 04 Garment Target -->
-      <div class="vh-group">
-        <div class="vh-group-head"><span class="vh-g-num">04</span><span class="vh-g-name">GARMENT TARGET</span><div class="vh-g-rule"></div></div>
-        <div class="vh-pills" id="vhg-garmentTarget">
-          <button class="vh-pill vh-gp active" data-val="black"    onclick="setVH('garmentTarget','black')"    style="--gc:#111111">Black shirt</button>
-          <button class="vh-pill vh-gp"        data-val="charcoal" onclick="setVH('garmentTarget','charcoal')" style="--gc:#444444">Charcoal shirt</button>
-          <button class="vh-pill vh-gp"        data-val="white"    onclick="setVH('garmentTarget','white')"    style="--gc:#e8e8e8">White shirt</button>
-          <button class="vh-pill vh-gp"        data-val="cream"    onclick="setVH('garmentTarget','cream')"    style="--gc:#f5ead8">Cream shirt</button>
-          <button class="vh-pill vh-gp"        data-val="colored"  onclick="setVH('garmentTarget','colored')"  style="--gc:#1565C0">Colored garment</button>
-        </div>
-        <p class="vh-hint" id="vh-hint-garmentTarget">Black shirt — dark garment ready, high contrast artwork</p>
-      </div>
-
-      <!-- 05 Color Mode -->
-      <div class="vh-group">
-        <div class="vh-group-head"><span class="vh-g-num">05</span><span class="vh-g-name">COLOR MODE</span><div class="vh-g-rule"></div></div>
-        <div class="vh-pills" id="vhg-colorMode">
-          <button class="vh-pill active" data-val="sepia"     onclick="setVH('colorMode','sepia')">Sepia gold</button>
-          <button class="vh-pill"        data-val="cream"     onclick="setVH('colorMode','cream')">Cream and black</button>
-          <button class="vh-pill"        data-val="mono"      onclick="setVH('colorMode','mono')">Faded monochrome</button>
-          <button class="vh-pill"        data-val="redcream"  onclick="setVH('colorMode','redcream')">Washed red and cream</button>
-          <button class="vh-pill"        data-val="charcoal"  onclick="setVH('colorMode','charcoal')">Charcoal and bone</button>
-          <button class="vh-pill"        data-val="fullcolor" onclick="setVH('colorMode','fullcolor')">Vintage full color</button>
-        </div>
-        <p class="vh-hint" id="vh-hint-colorMode">Warm aged brown tones — aged paper and sepia gold</p>
-      </div>
-    </div>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sc">
-        <div class="sh"><span class="st">Active style</span><div class="sdot"></div></div>
-        <div class="sel-body">
-          <div id="vh-tags" class="vh-tags-wrap"><p class="sel-empty">Select options to see your style take shape...</p></div>
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left">
+        <p class="eyebrow">About the Channel</p>
+        <h2 class="section-title">Why This Series<br><em>Had to Be Made</em></h2>
+        <p class="about-body">Postpartum depression affects millions of mothers worldwide — yet the stigma, shame, and silence around it remains deafening.</p>
+        <p class="about-body">Erana Unfiltered exists to change that. This series is for every mother who has smiled through the pain, felt invisible in her struggle, or wondered if she was broken. It's for partners who didn't know what to say. For families who didn't understand. For anyone who needs to hear that healing is real and possible.</p>
+        <p class="about-body">We joined YouTube in March 2025 — and we're just getting started.</p>
+        <div class="about-socials">
+          <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="social-link">
+            <span class="social-icon yt">▶</span> YouTube @EranaUnfiltered
+          </a>
+          <a href="#" class="social-link">
+            <span class="social-icon">◈</span> Instagram @UnfilteredMotherhood
+          </a>
+          <a href="#" class="social-link">
+            <span class="social-icon">✕</span> X (Twitter) @UnfilteredMotherhood
+          </a>
         </div>
       </div>
-
-      <div class="sc">
-        <div class="sh"><span class="st">Vintage prompt</span></div>
-        <div class="pb">
-          <p class="ph">Live-updating DTF prompt — paste into Midjourney, DALL·E, Firefly, or any AI image tool.</p>
-          <textarea class="pta" id="vh-prompt-out" readonly placeholder="Your vintage halftone prompt will appear here..."></textarea>
-          <div class="pbtns">
-            <button class="btn-gen" onclick="copyVHPrompt()">⧉ Copy prompt</button>
-            <button class="btn-dl-sm" onclick="downloadVHPrompt()" title="Download .txt">↓</button>
+      <div class="about-right">
+        <div class="mission-card">
+          <div class="mission-icon">◎</div>
+          <h3 class="mission-title">Our Mission</h3>
+          <p class="mission-body">To create a space where maternal mental health is discussed openly, honestly, and without judgment — because the more we speak, the less alone we all become.</p>
+          <div class="mission-divider"></div>
+          <div class="values-list">
+            <div class="value-item"><span class="value-dot"></span>No Judgment</div>
+            <div class="value-item"><span class="value-dot"></span>No Shame</div>
+            <div class="value-item"><span class="value-dot"></span>Just Real Conversations</div>
+            <div class="value-item"><span class="value-dot"></span>Evidence-Based Content</div>
+            <div class="value-item"><span class="value-dot"></span>Community First</div>
           </div>
         </div>
-      </div>
-
-      <div class="sc">
-        <div class="sh"><span class="st">Garment preview</span><span class="sh-hint" id="vh-garment-label">Black shirt</span></div>
-        <div class="mockup-body">
-          <div class="shirt-wrap">
-            <svg id="vh-shirt-svg" viewBox="0 0 200 225" xmlns="http://www.w3.org/2000/svg" width="100%">
-              <path id="vh-shirt-body" d="M 62,6 Q 100,32 138,6 L 196,54 L 160,67 L 160,218 L 40,218 L 40,67 L 4,54 Z" fill="#111111" stroke="rgba(232,184,75,0.2)" stroke-width="1.5"/>
-              <path d="M 62,6 Q 100,32 138,6" fill="none" stroke="rgba(232,184,75,0.1)" stroke-width="2"/>
-              <rect x="76" y="80" width="48" height="48" fill="rgba(196,82,26,0.38)" stroke="#e06030" stroke-width="1.5" stroke-dasharray="4 2" rx="3"/>
-              <text x="100" y="105" text-anchor="middle" font-size="5.5" fill="rgba(245,234,216,0.8)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.6">VINTAGE</text>
-              <text x="100" y="113" text-anchor="middle" font-size="5.5" fill="rgba(245,234,216,0.8)" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.6">PRINT</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="sc">
-        <div class="sh"><span class="st">Style notes</span></div>
-        <div class="tips-body">
-          <div><p class="tl">Halftone shading</p><p class="tt">Dot and line halftones mimic classic screen-print separation. AI renders these best with bold, high-contrast artwork.</p></div>
-          <div><p class="tl">Dark garment prints</p><p class="tt">For black or charcoal shirts, your artwork needs bright or light colours — avoid dark-on-dark designs.</p></div>
-          <div><p class="tl">Layer distress after</p><p class="tt">Generate clean halftone art first, then add distress texture in Photoshop or Procreate before DTF transfer.</p></div>
-          <div><p class="tl">Ink coverage</p><p class="tt">Heavy screen print = bold and opaque. Soft washed = lightweight feel, perfect for fashion-forward streetwear pieces.</p></div>
+        <div class="listen-card">
+          <p class="listen-label">Also listen on</p>
+          <p class="listen-platforms">Spotify · Apple Podcasts · And more</p>
+          <p class="listen-sub">New episodes every week</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ══ TAB 5: DTF HALFTONE PROCESSOR ══ -->
-<div id="tab-halftone" class="page">
-
-  <div class="ht-hero">
-    <div class="ht-hero-bg"></div>
-    <p class="ht-eyebrow">Image Processor — 05</p>
-    <h2 class="ht-title">DTF Halftone<br><span>Processor</span></h2>
-    <p class="ht-desc">Upload your PNG design and apply real halftone processing directly in the browser. Every slider actually affects the image. Export a transparent PNG ready for DTF printing.</p>
-    <div class="ht-badges">
-      <span class="badge">✦ Real Canvas Processing</span>
-      <span class="badge">✦ Live Preview</span>
-      <span class="badge">✦ 5 Halftone Types</span>
-      <span class="badge">✦ Dark Shirt Ready</span>
-      <span class="badge">✦ Transparent PNG Export</span>
+<!-- RESOURCES -->
+<section class="resources-section" id="resources">
+  <div class="section-inner">
+    <p class="eyebrow">Support & Resources</p>
+    <h2 class="section-title">You Don't Have to<br><em>Navigate This Alone</em></h2>
+    <p class="section-sub">If you or someone you love is struggling with postpartum depression or maternal mental health, these organisations can help right now.</p>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="resource-num">01</div>
+        <h3 class="resource-title">Postpartum Support International</h3>
+        <p class="resource-desc">24/7 helpline, local support groups, and an extensive resource library for mothers and families experiencing perinatal mood disorders.</p>
+        <div class="resource-contact">Helpline: 1-800-944-4773</div>
+        <div class="resource-web">postpartum.net</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-num">02</div>
+        <h3 class="resource-title">National Maternal Mental Health Hotline</h3>
+        <p class="resource-desc">Free, confidential support before, during, and after pregnancy. Available 24/7 in English and Spanish from trained counselors.</p>
+        <div class="resource-contact">Call or text: 1-833-943-5746</div>
+        <div class="resource-web">mchb.hrsa.gov</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-num">03</div>
+        <h3 class="resource-title">Crisis Text Line</h3>
+        <p class="resource-desc">Free, 24/7 text-based support for anyone in crisis. A trained crisis counselor responds — available whenever you need it most.</p>
+        <div class="resource-contact">Text HOME to 741741</div>
+        <div class="resource-web">crisistextline.org</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-num">04</div>
+        <h3 class="resource-title">Talk to Your Doctor</h3>
+        <p class="resource-desc">Your OB, midwife, or GP is your first line of support. Postpartum depression is a medical condition — and it is treatable with the right help.</p>
+        <div class="resource-contact">Schedule an appointment today</div>
+        <div class="resource-web">Ask at your next visit</div>
+      </div>
+    </div>
+    <div class="disclaimer">
+      This series is for awareness and community support. It is not a substitute for professional medical or mental health care. If you are in immediate crisis, please contact emergency services or a crisis line.
     </div>
   </div>
+</section>
 
-  <!-- UPLOAD AREA -->
-  <div id="ht-upload-area" class="ht-upload-area">
-    <input type="file" id="ht-file-input" accept="image/png,image/jpeg,image/webp" style="display:none">
-    <div class="ht-upload-icon">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="46" height="46" rx="10" stroke="rgba(232,184,75,0.3)" stroke-width="2" stroke-dasharray="6 4"/>
-        <path d="M24 30V18M24 18L19 23M24 18L29 23" stroke="rgba(232,184,75,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M16 34h16" stroke="rgba(232,184,75,0.4)" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <p class="ht-upload-title">Drop your design here</p>
-    <p class="ht-upload-sub">PNG, JPG or WebP — click to browse</p>
-    <p class="ht-upload-hint">Works best with high-contrast artwork on a transparent or white background</p>
-  </div>
-
-  <!-- PROCESSOR UI (hidden until image loaded) -->
-  <div id="ht-processor-ui" style="display:none">
-
-    <!-- PREVIEWS -->
-    <div class="ht-previews">
-      <div class="ht-preview-panel">
-        <div class="ht-preview-label">Original</div>
-        <div class="ht-canvas-wrap ht-canvas-checker">
-          <canvas id="ht-orig-canvas"></canvas>
+<!-- SUBSCRIBE CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <p class="eyebrow">New Episodes Every Week</p>
+        <h2 class="cta-title">Every Story<br><em>Matters.</em></h2>
+        <p class="cta-body">Subscribe to Erana Unfiltered and turn on notifications — so every new episode, every real story, reaches you the moment it drops. You're part of this community.</p>
+        <div class="cta-actions">
+          <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener" class="btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.4 12 20.4 12 20.4s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            Subscribe on YouTube
+          </a>
+          <div class="cta-platforms">
+            <span>Also on</span>
+            <span class="platform-badge">Spotify</span>
+            <span class="platform-badge">Apple Podcasts</span>
+          </div>
         </div>
       </div>
-      <div class="ht-preview-panel">
-        <div class="ht-preview-label">Halftone processed</div>
-        <div class="ht-canvas-wrap ht-canvas-checker">
-          <canvas id="ht-out-canvas"></canvas>
+      <div class="cta-right">
+        <div class="cta-handle">@EranaUnfiltered</div>
+        <div class="cta-tags">
+          <span>#MotherhoodUnfiltered</span>
+          <span>#PostpartumAwareness</span>
+          <span>#MentalHealthMatters</span>
+          <span>#NewMomSupport</span>
         </div>
       </div>
-      <div class="ht-preview-panel">
-        <div class="ht-preview-label">Shirt preview</div>
-        <div class="ht-canvas-wrap">
-          <canvas id="ht-shirt-canvas"></canvas>
-        </div>
-        <div class="ht-garment-btns">
-          <button class="ht-garment-btn active" data-color="#111111" style="background:#111111" title="Black"></button>
-          <button class="ht-garment-btn" data-color="#EFEFEF" style="background:#EFEFEF;border-color:rgba(100,100,100,0.4)" title="White"></button>
-          <button class="ht-garment-btn" data-color="#6E6E6E" style="background:#6E6E6E" title="Grey"></button>
-          <button class="ht-garment-btn" data-color="#1A237E" style="background:#1A237E" title="Navy"></button>
-          <button class="ht-garment-btn" data-color="#C62828" style="background:#C62828" title="Red"></button>
-          <button class="ht-garment-btn" data-color="#2E7D32" style="background:#2E7D32" title="Forest"></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTROLS GRID -->
-    <div class="ht-controls-grid">
-
-      <!-- LEFT: HALFTONE SETTINGS -->
-      <div class="ht-ctrl-panel">
-        <div class="ht-ctrl-head"><span class="ht-ctrl-num">01</span><span class="ht-ctrl-title">HALFTONE SETTINGS</span></div>
-
-        <div class="ht-ctrl-row">
-          <label class="ht-ctrl-label">Halftone type</label>
-          <select class="ht-select" id="ht-type">
-            <option value="dot">Dot halftone</option>
-            <option value="line">Line halftone</option>
-            <option value="newspaper">Newspaper bitmap</option>
-            <option value="engraved">Engraved lines</option>
-            <option value="stipple">Stipple texture</option>
-          </select>
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">LPI (lines per inch)</label>
-            <span class="ht-slider-val" id="ht-lpi-val">35</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-lpi" min="10" max="85" step="1" value="35">
-          <div class="ht-slider-range"><span>10 — coarse</span><span>85 — fine</span></div>
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">Dot angle</label>
-            <span class="ht-slider-val" id="ht-angle-val">22.5°</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-angle" min="0" max="90" step="0.5" value="22.5">
-          <div class="ht-slider-range"><span>0°</span><span>90°</span></div>
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">Softness</label>
-            <span class="ht-slider-val" id="ht-softness-val">45%</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-softness" min="0" max="100" step="1" value="45">
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">Ink gain / spread</label>
-            <span class="ht-slider-val" id="ht-gain-val">40%</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-gain" min="0" max="100" step="1" value="40">
-        </div>
-      </div>
-
-      <!-- MIDDLE: DTF DARK SHIRT CONTROLS -->
-      <div class="ht-ctrl-panel">
-        <div class="ht-ctrl-head"><span class="ht-ctrl-num">02</span><span class="ht-ctrl-title">DTF DARK SHIRT</span></div>
-
-        <div class="ht-toggle-row">
-          <label class="ht-toggle-label">White ink underbase</label>
-          <label class="ht-toggle-switch">
-            <input type="checkbox" id="ht-underbase" checked>
-            <span class="ht-toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">Black removal</label>
-            <span class="ht-slider-val" id="ht-black-removal-val">30%</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-black-removal" min="0" max="80" step="1" value="30">
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">Midtone detail</label>
-            <span class="ht-slider-val" id="ht-midtone-val">50%</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-midtone" min="0" max="100" step="1" value="50">
-        </div>
-
-        <div class="ht-ctrl-row">
-          <div class="ht-slider-head">
-            <label class="ht-ctrl-label">White ink strength</label>
-            <span class="ht-slider-val" id="ht-white-strength-val">80%</span>
-          </div>
-          <input type="range" class="ht-slider" id="ht-white-strength" min="20" max="100" step="1" value="80">
-        </div>
-
-        <div class="ht-toggle-row">
-          <label class="ht-toggle-label">Cleanup filter (remove dust pixels)</label>
-          <label class="ht-toggle-switch">
-            <input type="checkbox" id="ht-cleanup" checked>
-            <span class="ht-toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="ht-toggle-row">
-          <label class="ht-toggle-label">Transparent background</label>
-          <label class="ht-toggle-switch">
-            <input type="checkbox" id="ht-transparent" checked>
-            <span class="ht-toggle-track"></span>
-          </label>
-        </div>
-      </div>
-
-      <!-- RIGHT: COLOR TONE + PRINT SIZE + EXPORT -->
-      <div class="ht-ctrl-panel">
-        <div class="ht-ctrl-head"><span class="ht-ctrl-num">03</span><span class="ht-ctrl-title">COLOUR TONE</span></div>
-
-        <div class="ht-color-pills">
-          <button class="ht-color-pill active" data-mode="original">Keep original</button>
-          <button class="ht-color-pill" data-mode="cream">Cream &amp; black</button>
-          <button class="ht-color-pill" data-mode="sepia">Sepia gold</button>
-          <button class="ht-color-pill" data-mode="charcoal">Charcoal &amp; bone</button>
-          <button class="ht-color-pill" data-mode="vintage">Washed vintage</button>
-          <button class="ht-color-pill" data-mode="mono">Monochrome</button>
-        </div>
-
-        <div class="ht-ctrl-head" style="margin-top:22px"><span class="ht-ctrl-num">04</span><span class="ht-ctrl-title">FINAL PRINT SIZE</span></div>
-
-        <div class="ht-size-row">
-          <div class="ht-size-field">
-            <label class="ht-ctrl-label">Width (inches)</label>
-            <input type="number" class="ht-input" id="ht-print-w" value="12" min="1" max="24" step="0.5">
-          </div>
-          <div class="ht-size-x">×</div>
-          <div class="ht-size-field">
-            <label class="ht-ctrl-label">Height (inches)</label>
-            <input type="number" class="ht-input" id="ht-print-h" value="12" min="1" max="24" step="0.5">
-          </div>
-          <div class="ht-size-field">
-            <label class="ht-ctrl-label">DPI</label>
-            <select class="ht-select" id="ht-dpi">
-              <option value="150">150</option>
-              <option value="300" selected>300</option>
-              <option value="600">600</option>
-            </select>
-          </div>
-        </div>
-        <div class="ht-px-dims" id="ht-px-dims">— select size and DPI</div>
-
-        <div class="ht-ctrl-head" style="margin-top:22px"><span class="ht-ctrl-num">05</span><span class="ht-ctrl-title">EXPORT</span></div>
-
-        <div class="ht-export-btns">
-          <button class="ht-export-main" id="ht-export-png">↓ Transparent PNG (DTF ready)</button>
-          <button class="ht-export-sec" id="ht-export-shirt">↓ Shirt preview JPG</button>
-          <button class="ht-export-sec" id="ht-export-brief">↓ Print brief .txt</button>
-          <button class="ht-export-sec" id="ht-copy-settings">⧉ Copy printer settings</button>
-          <button class="ht-export-danger" id="ht-reset-image">✕ Remove image</button>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
-    <span class="footer-brand">DTF<span>Studio</span></span>
-    <span class="footer-sep">—</span>
-    <span class="footer-copy">AI prompt builder for DTF gang sheet printing</span>
+    <div class="footer-brand">Erana<span>Unfiltered</span></div>
+    <p class="footer-tagline">No Judgment. No Shame. Just Real Conversations.</p>
+    <div class="footer-nav">
+      <a href="https://www.youtube.com/@EranaUnfiltered" target="_blank" rel="noopener">YouTube</a>
+      <a href="#">Instagram</a>
+      <a href="#">X / Twitter</a>
+      <a href="#resources">Resources</a>
+    </div>
+    <p class="footer-copy">© 2025 Erana Unfiltered · A documentary series about maternal mental health</p>
+    <p class="footer-joined">Joined YouTube · 4 March 2025</p>
   </div>
 </footer>
 
-<!-- TOAST -->
-<div id="toast-container" class="toast-container"></div>
-
 <script src="js/app.js"></script>
-<script src="js/halftone.js"></script>
 </body>
 </html>
