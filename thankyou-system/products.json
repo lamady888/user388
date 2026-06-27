@@ -1,0 +1,172 @@
+{
+  "rose": {
+    "id": "rose",
+    "name": "The Rose",
+    "tagline": "A bloom held still in plaster",
+    "story": "In a small garden behind her grandmother's house in Dubrovnik, there grew a rose so perfect that she pressed one in her journal and kept it for thirty years. The day she designed this mold, she traced those very petals — the ones she had memorised as a child, the curve of each fold burned into memory. When you hold your rose piece, you are holding that memory made tangible. Let it bloom the way you imagine it.",
+    "narration": "Close your eyes for a moment. Somewhere, decades ago, a woman pressed a rose into a journal and promised herself she would never forget its shape. She never did. The mold you are holding now was drawn from that memory — every curve intentional, every petal faithful. What you paint next is yours alone. There are no rules here, only colours waiting to become something beautiful. Thank you for letting this rose live in your hands.",
+    "audioFile": "audio/rose.mp3",
+    "paintingTips": [
+      "Work from the centre outward — the innermost petals are darkest, the outer tips catch the most light.",
+      "Apply your base coat in thin layers. Three thin coats hold better than one thick one.",
+      "Use a dry brush with a tiny amount of your lightest colour to catch the raised edges and create natural highlights.",
+      "Let each layer dry fully before adding the next — patience at this stage transforms the final result.",
+      "A very thin wash of a contrasting colour in the deep recesses adds instant depth."
+    ],
+    "palettes": [
+      {
+        "id": "florentine",
+        "name": "Florentine Garden",
+        "mood": "Romantic, warm, timeless",
+        "description": "A palette inspired by Renaissance frescoes and late-afternoon light through old stone windows.",
+        "colors": [
+          { "hex": "#FFF0E6", "name": "Petal Tip", "role": "Highlight", "tip": "Dry brush lightly across the highest raised edges at the very end." },
+          { "hex": "#F2C4B0", "name": "First Blush", "role": "Base coat", "tip": "Apply as your first full-coverage layer across all petals." },
+          { "hex": "#D4857A", "name": "Warming Noon", "role": "Mid-tone", "tip": "Build up gradually over the base, concentrating toward the centre." },
+          { "hex": "#9E4F5B", "name": "Velvet Deep", "role": "Shadow", "tip": "Use only in the innermost petal folds and the deepest recesses." },
+          { "hex": "#C5A97E", "name": "Gilded Sepal", "role": "Accent", "tip": "For leaves and stem — mix with a touch of white to vary the tone." }
+        ]
+      },
+      {
+        "id": "moonrise",
+        "name": "Moonrise",
+        "mood": "Ethereal, cool, modern",
+        "description": "Pale blues and lavenders that turn the rose into something otherworldly — a flower from a dream.",
+        "colors": [
+          { "hex": "#F5F0FF", "name": "Soft Moonlight", "role": "Highlight", "tip": "The very tips of petals, barely touched — let the plaster almost show through." },
+          { "hex": "#C9BFE8", "name": "Dusk Petal", "role": "Base coat", "tip": "A generous base layer across every surface of the rose." },
+          { "hex": "#8B7DBF", "name": "Twilight Bloom", "role": "Mid-tone", "tip": "Layer from the centre outward, blending into the base while still wet." },
+          { "hex": "#4A3F7A", "name": "Deep Night", "role": "Shadow", "tip": "Concentrate in the innermost curl of petals. Less is more here." },
+          { "hex": "#B8D4C8", "name": "Silver Leaf", "role": "Accent", "tip": "For the leaves and outer stem — it lifts the whole piece." }
+        ]
+      },
+      {
+        "id": "terracotta",
+        "name": "Summer Earth",
+        "mood": "Warm, grounded, Mediterranean",
+        "description": "Sun-baked terracotta and ochre — the palette of a rose growing wild along a dusty hillside path.",
+        "colors": [
+          { "hex": "#F5DEC0", "name": "Desert Light", "role": "Highlight", "tip": "For the very outermost petal tips to suggest sunlight falling." },
+          { "hex": "#E8A87C", "name": "Amber Petal", "role": "Base coat", "tip": "Your warm, all-over base — let it dry completely before layering." },
+          { "hex": "#C96B3A", "name": "Terracotta Heart", "role": "Mid-tone", "tip": "Deepen the centre and shadow areas with confident brush strokes." },
+          { "hex": "#7A3520", "name": "Ancient Ember", "role": "Shadow", "tip": "Just a whisper in the darkest recesses — it anchors the whole piece." },
+          { "hex": "#6B8C5A", "name": "Wild Sage", "role": "Accent", "tip": "The stem and leaves — a cool green beside warm amber is the secret." }
+        ]
+      }
+    ]
+  },
+
+  "mandala": {
+    "id": "mandala",
+    "name": "The Mandala",
+    "tagline": "A quiet space made visible",
+    "story": "The first mandala I ever drew was on the back of a hospital waiting room pamphlet. I had been there all night, and at some point the repetition — circle after circle, ring after ring — became the most calming thing I had ever done. My hands moved without thinking. The lines found their own symmetry. This mold carries that same intention: a quiet space, a place the mind can rest. Paint it slowly. Let each colour be a breath.",
+    "narration": "Every circle in this mandala was drawn by hand, one ring at a time. There is a kind of meditation in that — the same movement, repeated, until something whole emerges from nothing. That is exactly what you are about to do. Colour by colour, your hands will make something that did not exist before. There is no rush here. The mandala has waited. It can wait a little longer, until you are ready to begin. Thank you for bringing it to life.",
+    "audioFile": "audio/mandala.mp3",
+    "paintingTips": [
+      "Start from the outside and work inward — it keeps your hands from smudging wet paint in the centre.",
+      "Use a fine detailing brush for the smallest geometric elements and a flat brush for the broad rings.",
+      "Repeat your colour sequence every two or three rings to create a rhythm — it makes the finished piece feel intentional.",
+      "Metallic accents (gold or copper) in the outermost ring elevate the entire piece with very little effort.",
+      "If you make a mistake, a thin layer of white primer and a fresh coat will fix it almost invisibly."
+    ],
+    "palettes": [
+      {
+        "id": "desert",
+        "name": "Desert Ceremony",
+        "mood": "Warm, spiritual, golden hour",
+        "description": "The colours of a desert at sundown — terracotta, ochre, and the flash of gold that runs along the horizon.",
+        "colors": [
+          { "hex": "#F2D16B", "name": "Sun Gold", "role": "Outer ring", "tip": "Lead with this in the widest outer band — it anchors everything that follows." },
+          { "hex": "#E8935A", "name": "Canyon Clay", "role": "Mid rings", "tip": "Alternate with cream to create a warm rhythm through the centre bands." },
+          { "hex": "#C45C2A", "name": "Fired Earth", "role": "Detail accent", "tip": "Use for fine geometric lines and the innermost filled areas." },
+          { "hex": "#FFF5E0", "name": "Pale Noon", "role": "Negative space", "tip": "Leave some rings in this near-white — the contrast makes the others glow." },
+          { "hex": "#8B3D1A", "name": "Deep Dusk", "role": "Shadow lines", "tip": "A fine line of this between rings creates the illusion of depth." }
+        ]
+      },
+      {
+        "id": "midnight",
+        "name": "Midnight Garden",
+        "mood": "Dramatic, jewel-toned, meditative",
+        "description": "Deep jewel tones that turn the mandala into a stained glass window — something to get lost inside.",
+        "colors": [
+          { "hex": "#FFD700", "name": "Gilt", "role": "Highlight lines", "tip": "Gold paint for the finest detail lines — a little transforms the whole piece." },
+          { "hex": "#1B4F72", "name": "Midnight Blue", "role": "Outer bands", "tip": "Bold and deep in the widest outer rings for maximum drama." },
+          { "hex": "#6B2FA0", "name": "Deep Amethyst", "role": "Mid bands", "tip": "Alternate with teal in the middle section for a jewelled effect." },
+          { "hex": "#1A6B6B", "name": "Dark Teal", "role": "Inner bands", "tip": "Brings the mandala inward — darker as you move toward the centre." },
+          { "hex": "#2C1654", "name": "Void", "role": "Centrepoint", "tip": "The very centre, nearly black — gives the mandala a still, deep heart." }
+        ]
+      },
+      {
+        "id": "spring",
+        "name": "Spring Offering",
+        "mood": "Light, botanical, joyful",
+        "description": "Fresh greens, soft corals, and the white of new blossoms — a mandala that feels like the first warm day.",
+        "colors": [
+          { "hex": "#FFFFFF", "name": "Pure White", "role": "Base & negative space", "tip": "Start with a clean white base coat on the entire piece and let it dry." },
+          { "hex": "#A8D8A8", "name": "New Leaf", "role": "Outer rings", "tip": "Soft, not saturated — this should feel like morning light through leaves." },
+          { "hex": "#F4A7B9", "name": "Cherry Petal", "role": "Mid rings", "tip": "Alternate with the green to create a botanical, rhythmic feel." },
+          { "hex": "#F9D56E", "name": "Pollen", "role": "Accent", "tip": "Small filled dots and the very innermost circle — warm and sunny." },
+          { "hex": "#6B9E78", "name": "Deep Fern", "role": "Detail lines", "tip": "A darker green for fine outlines between sections — the definition it needs." }
+        ]
+      }
+    ]
+  },
+
+  "seashell": {
+    "id": "seashell",
+    "name": "The Seashell",
+    "tagline": "The sea left this here for you",
+    "story": "This shell spent three weeks on my windowsill before I could bring myself to turn it into a mold. I had found it on a beach at five in the morning, the only one awake, and it felt like the sea had left it specifically for me to find. There was something about holding it — the weight, the perfect architecture of it — that made me hesitant to duplicate it. But then I thought: why should only one person have this? Every shell you paint from this mold carries that same quality. Something quietly extraordinary. Patient as the tide.",
+    "narration": "Somewhere on an early morning beach, this shell was found in the particular silence that exists before the rest of the world wakes up. It was carried home in a coat pocket, set on a windowsill, and held many times before it became the mold in your hands. The sea made this shape over thousands of years, perfecting the spiral, refining the ridge, balancing the weight. All that patience, just to arrive here. To become yours. Thank you for giving it colour.",
+    "audioFile": "audio/seashell.mp3",
+    "paintingTips": [
+      "Follow the natural ridges of the shell with your brush strokes — they guide the colours the same way water would flow over a real shell.",
+      "The spiral interior reads beautifully with deeper, darker colour at the very tip, growing lighter as it opens outward.",
+      "A gloss varnish as a finishing coat gives the shell its natural wet-from-the-sea appearance.",
+      "Iridescent paint or pearlescent powder mixed into your final coat creates that unmistakable shell luminosity.",
+      "If painting the underside, treat it as a landscape: flat planes of colour rather than gradients."
+    ],
+    "palettes": [
+      {
+        "id": "coastal",
+        "name": "Coastal Dawn",
+        "mood": "Serene, natural, sun-warmed",
+        "description": "The palette of sand still cool from the night, water catching its first light, and bleached driftwood.",
+        "colors": [
+          { "hex": "#F5ECD7", "name": "Sand at Dawn", "role": "Base coat", "tip": "Your lightest, warmest tone — cover the entire shell and let dry fully." },
+          { "hex": "#D4B896", "name": "Driftwood", "role": "Mid-tone", "tip": "Follow the ridges of the shell with a medium brush, letting it pool naturally." },
+          { "hex": "#A0845C", "name": "Weathered Oak", "role": "Shadow", "tip": "Concentrate in the deepest grooves and the interior spiral tip." },
+          { "hex": "#6B9EB2", "name": "Morning Sea", "role": "Accent", "tip": "A wash of this inside the aperture suggests depth and water." },
+          { "hex": "#E8E0D0", "name": "Pale Tide", "role": "Highlight", "tip": "Dry brush across the highest ridges for a wave-polished look." }
+        ]
+      },
+      {
+        "id": "pearl",
+        "name": "Pearl & Iridescence",
+        "mood": "Luminous, precious, timeless",
+        "description": "Whites, creams, and the secret of iridescent paint — a shell that looks as if it has never left the ocean floor.",
+        "colors": [
+          { "hex": "#FAFAF5", "name": "Pure Pearl", "role": "Base coat", "tip": "Two full coats of the purest white you have. The base is everything here." },
+          { "hex": "#EDE8E0", "name": "Aged Ivory", "role": "Wash", "tip": "A very diluted wash across the whole shell — adds warmth to the white." },
+          { "hex": "#D4C9E2", "name": "Lavender Lustre", "role": "Shadow tint", "tip": "Thin wash in the grooves only — suggests iridescence in the shadows." },
+          { "hex": "#C8E6D4", "name": "Sea Foam", "role": "Complement", "tip": "A hint in the inner spiral gives depth without breaking the white mood." },
+          { "hex": "#F0E8B0", "name": "Gold Shimmer", "role": "Highlight", "tip": "Mix iridescent powder into this and dry brush the highest ridges last." }
+        ]
+      },
+      {
+        "id": "tropical",
+        "name": "Tropical Depths",
+        "mood": "Vivid, bold, joyful",
+        "description": "The colours of a reef — bold coral, turquoise, and the warm gold of sunlight filtered through clear water.",
+        "colors": [
+          { "hex": "#FF7B54", "name": "Living Coral", "role": "Base coat", "tip": "A vibrant, confident base — commit to it. The other colours need this warmth beneath them." },
+          { "hex": "#FFB347", "name": "Tropic Gold", "role": "Mid-tone", "tip": "Blend into the coral base on the outer ridges for a warm gradient." },
+          { "hex": "#2EC4B6", "name": "Reef Turquoise", "role": "Contrast accent", "tip": "Inside the aperture and the interior spiral only — cool against the warm exterior." },
+          { "hex": "#FFEE88", "name": "Sunlit Surface", "role": "Highlight", "tip": "On the highest ridges — where light breaks the water's surface." },
+          { "hex": "#B83200", "name": "Deep Coral", "role": "Shadow", "tip": "In the deepest grooves only — anchors the piece and prevents it from floating." }
+        ]
+      }
+    ]
+  }
+}

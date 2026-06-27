@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilo Krafts — Thank-You Card Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --cream: #faf6f0;
+      --accent: #8B5E52;
+      --gold: #c8a84b;
+      --warm-mid: #f0e8dc;
+      --border: #e0d8ce;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f0ea;
+      padding: 32px 16px;
+      min-height: 100vh;
+    }
+
+    /* ── GENERATOR PANEL (screen only) ── */
+    .generator {
+      max-width: 560px;
+      margin: 0 auto 48px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .generator-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .generator-title {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 32px;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139,94,82,0.1);
+    }
+
+    .url-preview {
+      font-size: 11px;
+      color: #999;
+      margin-top: 16px;
+      font-family: monospace;
+      word-break: break-all;
+      background: var(--cream);
+      padding: 10px 12px;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    .btn-generate {
+      width: 100%;
+      padding: 14px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+    .btn-print {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--warm-mid);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .btn-print:hover { background: #e8ddd0; }
+
+    .hint {
+      font-size: 11px;
+      color: #bbb;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* ── CARD PREVIEW (both screen and print) ── */
+    .card-preview {
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .card-preview h3 {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* ── THE ACTUAL CARD ── */
+    /* A6 = 105mm × 148mm at 96dpi ≈ 397px × 559px */
+    .card {
+      width: 380px;
+      min-height: 540px;
+      background: var(--cream);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      page-break-inside: avoid;
+    }
+
+    /* Decorative corner motif */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top left, rgba(200,168,75,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at bottom right, rgba(139,94,82,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .card-top {
+      background: var(--ink);
+      color: #fff;
+      padding: 28px 32px 24px;
+      position: relative;
+    }
+
+    .card-top::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 24px;
+      background: var(--cream);
+      clip-path: ellipse(52% 100% at 50% 100%);
+    }
+
+    .card-brand {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .card-headline {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .card-subline {
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .card-body {
+      flex: 1;
+      padding: 32px 32px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card-message {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #5a4e45;
+      line-height: 1.85;
+    }
+
+    .card-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .card-qr-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .card-qr-box {
+      width: 90px;
+      height: 90px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .card-qr-box canvas, .card-qr-box img {
+      width: 82px !important;
+      height: 82px !important;
+    }
+
+    .qr-placeholder {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      opacity: 0.2;
+    }
+
+    .qr-placeholder div { background: var(--ink); border-radius: 1px; }
+
+    .card-scan-text {
+      flex: 1;
+    }
+
+    .card-scan-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .card-scan-desc {
+      font-size: 0.78rem;
+      color: #7a6e65;
+      line-height: 1.7;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+    }
+
+    .card-footer {
+      padding: 0 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-order-id {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: 0.05em;
+    }
+
+    .card-tiktok {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      @page {
+        size: 105mm 148mm;
+        margin: 0;
+      }
+
+      body {
+        background: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .generator,
+      .card-preview > h3,
+      .no-print {
+        display: none !important;
+      }
+
+      .card-preview {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .card {
+        width: 105mm;
+        min-height: 148mm;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- GENERATOR PANEL -->
+<div class="generator no-print">
+  <div class="generator-logo">Ilo Krafts</div>
+  <div class="generator-title">Thank-You Card Generator</div>
+
+  <div class="field">
+    <label>Mold / Product</label>
+    <select id="productSelect">
+      <option value="rose">The Rose</option>
+      <option value="mandala">The Mandala</option>
+      <option value="seashell">The Seashell</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Order ID</label>
+    <input type="text" id="orderId" placeholder="e.g. ILO-2024-001" />
+  </div>
+
+  <div class="field">
+    <label>Customer First Name (optional)</label>
+    <input type="text" id="customerName" placeholder="e.g. Sarah" />
+  </div>
+
+  <div class="field">
+    <label>Your Website Domain</label>
+    <input type="text" id="domain" value="ilo.krafts.com" />
+  </div>
+
+  <div class="url-preview" id="urlPreview">URL will appear here</div>
+
+  <button class="btn-generate" onclick="generateCard()">Generate Card</button>
+  <button class="btn-print" onclick="window.print()">Print Card</button>
+  <p class="hint">Set your printer to A6 (postcard) or 4×6 inch paper.<br>Disable headers & footers in print settings.</p>
+</div>
+
+<!-- CARD PREVIEW -->
+<div class="card-preview" id="cardPreview">
+  <h3 class="no-print">Card Preview</h3>
+  <div class="card" id="card">
+    <div class="card-top">
+      <div class="card-brand">Ilo Krafts</div>
+      <div class="card-headline" id="cardHeadline">Thank you.</div>
+      <div class="card-subline" id="cardSubline">Your mold has a story waiting for you.</div>
+    </div>
+    <div class="card-body">
+      <p class="card-message" id="cardMessage">
+        Every piece that leaves our hands carries a little piece of the maker who created it. We hope yours brings you as much joy to paint as it brought us to make.
+      </p>
+      <div class="card-divider"></div>
+      <div class="card-qr-row">
+        <div class="card-qr-box" id="qrBox">
+          <!-- QR placeholder grid -->
+          <div class="qr-placeholder" id="qrPlaceholder">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          </div>
+        </div>
+        <div class="card-scan-text">
+          <div class="card-scan-label">Scan to discover</div>
+          <p class="card-scan-desc">Your mold's story, colour suggestions, and step-by-step painting guide — made just for you.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-order-id" id="cardOrderId"></span>
+      <span class="card-tiktok">@ilo.krafts</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const MESSAGES = {
+  rose:     "A rose was pressed into a journal thirty years ago and kept safe all this time. The mold you hold was drawn from that memory. Now it's yours to bring to life.",
+  mandala:  "Every circle in this mandala was drawn by hand, one ring at a time. It carries the quiet of its making. Paint it slowly — let each colour be a breath.",
+  seashell: "This shell was found on an early morning beach before the rest of the world woke up. It felt like it was left there to be found. Now it's yours to colour as you choose."
+};
+
+const SUBLINES = {
+  rose:     "A bloom held still in plaster.",
+  mandala:  "A quiet space made visible.",
+  seashell: "The sea left this here for you."
+};
+
+function buildUrl() {
+  const product = document.getElementById('productSelect').value;
+  const order   = document.getElementById('orderId').value.trim();
+  const name    = document.getElementById('customerName').value.trim();
+  const domain  = document.getElementById('domain').value.trim() || 'ilo.krafts.com';
+
+  let url = `https://${domain}/story.html?p=${product}`;
+  if (order) url += `&o=${encodeURIComponent(order)}`;
+  if (name)  url += `&n=${encodeURIComponent(name)}`;
+  return url;
+}
+
+function generateCard() {
+  const product  = document.getElementById('productSelect').value;
+  const order    = document.getElementById('orderId').value.trim();
+  const name     = document.getElementById('customerName').value.trim();
+  const url      = buildUrl();
+
+  // Update preview text
+  document.getElementById('urlPreview').textContent = url;
+
+  const headline = name ? `Thank you,\n${name}.` : 'Thank you.';
+  document.getElementById('cardHeadline').innerHTML = name
+    ? `Thank you,<br><em>${name}.</em>`
+    : 'Thank you.';
+  document.getElementById('cardSubline').textContent   = SUBLINES[product] || 'Your mold has a story waiting.';
+  document.getElementById('cardMessage').textContent   = MESSAGES[product]  || '';
+  document.getElementById('cardOrderId').textContent   = order ? `Order ${order}` : '';
+
+  // Generate QR code
+  const qrBox = document.getElementById('qrBox');
+  qrBox.innerHTML = ''; // clear placeholder
+  new QRCode(qrBox, {
+    text:           url,
+    width:          82,
+    height:         82,
+    colorDark:      '#1a1a1a',
+    colorLight:     '#ffffff',
+    correctLevel:   QRCode.CorrectLevel.M
+  });
+}
+
+// Live URL preview
+['productSelect','orderId','customerName','domain'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById('urlPreview').textContent = buildUrl();
+  });
+});
+
+// Init preview URL
+document.getElementById('urlPreview').textContent = buildUrl();
+</script>
+</body>
+</html>
