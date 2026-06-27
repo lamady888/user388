@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a1a1a">
+  <title>Your Ilo Krafts Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --cream: #faf6f0;
+      --warm-mid: #f0e8dc;
+      --accent: #8B5E52;
+      --accent-light: #c9a99e;
+      --gold: #c8a84b;
+      --text-mid: #4a4a4a;
+      --text-light: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      color: #fff;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(200,168,75,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse at 20% 80%, rgba(139,94,82,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .brand-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .greeting {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 3vw, 1.15rem);
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 48px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.35);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fadeInUp 2s ease 1.5s both;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: pulse-line 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-line {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ── AUDIO PLAYER ── */
+    .audio-section {
+      background: #fff;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .player-card {
+      max-width: 420px;
+      margin: 0 auto;
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+    }
+
+    .player-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .player-subtitle {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+    }
+
+    .play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: none;
+      cursor: pointer;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .play-btn:hover { transform: scale(1.06); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .play-btn:active { transform: scale(0.97); }
+
+    .play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+    .play-btn.playing svg { margin-left: 0; }
+
+    .play-btn.playing .icon-play { display: none; }
+    .play-btn:not(.playing) .icon-pause { display: none; }
+
+    .waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 32px;
+      margin-bottom: 16px;
+    }
+
+    .waveform-bar {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--accent-light);
+      animation: none;
+    }
+
+    .waveform.playing .waveform-bar {
+      animation: wave 1.2s ease-in-out infinite;
+    }
+
+    .waveform-bar:nth-child(1)  { height: 8px;  animation-delay: 0.0s; }
+    .waveform-bar:nth-child(2)  { height: 18px; animation-delay: 0.1s; }
+    .waveform-bar:nth-child(3)  { height: 26px; animation-delay: 0.2s; }
+    .waveform-bar:nth-child(4)  { height: 14px; animation-delay: 0.3s; }
+    .waveform-bar:nth-child(5)  { height: 22px; animation-delay: 0.15s; }
+    .waveform-bar:nth-child(6)  { height: 30px; animation-delay: 0.25s; }
+    .waveform-bar:nth-child(7)  { height: 18px; animation-delay: 0.05s; }
+    .waveform-bar:nth-child(8)  { height: 26px; animation-delay: 0.35s; }
+    .waveform-bar:nth-child(9)  { height: 12px; animation-delay: 0.1s; }
+    .waveform-bar:nth-child(10) { height: 20px; animation-delay: 0.2s; }
+    .waveform-bar:nth-child(11) { height: 28px; animation-delay: 0.0s; }
+    .waveform-bar:nth-child(12) { height: 16px; animation-delay: 0.3s; }
+    .waveform-bar:nth-child(13) { height: 8px;  animation-delay: 0.15s; }
+
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+      50%       { transform: scaleY(1);   opacity: 1; }
+    }
+
+    .tts-note {
+      font-size: 11px;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    audio { display: none; }
+
+    /* ── STORY ── */
+    .story-section {
+      padding: 64px 24px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .story-section .section-label { text-align: left; }
+
+    .story-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.9;
+      color: var(--text-mid);
+    }
+
+    .story-text::first-letter {
+      float: left;
+      font-size: 3.8em;
+      line-height: 0.75;
+      padding-right: 10px;
+      padding-top: 8px;
+      color: var(--accent);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .story-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent-light);
+      margin: 48px 0;
+    }
+
+    /* ── COLOUR PALETTES ── */
+    .palette-section {
+      background: var(--ink);
+      color: #fff;
+      padding: 64px 24px;
+    }
+
+    .palette-section .section-label {
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .palette-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+
+    .palette-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .palette-tab {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .palette-tab:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .palette-tab.active { background: #fff; color: var(--ink); border-color: #fff; }
+
+    .palette-panel { display: none; max-width: 560px; margin: 0 auto; }
+    .palette-panel.active { display: block; }
+
+    .palette-mood {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .palette-desc {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .color-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .color-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .color-item:hover { background: rgba(255,255,255,0.08); }
+
+    .color-swatch {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .color-info { flex: 1; }
+
+    .color-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .color-role {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .color-tip {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    .color-hex {
+      font-family: 'Inter', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      z-index: 999;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── PAINTING TIPS ── */
+    .tips-section {
+      padding: 64px 24px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .tips-section .section-label { text-align: left; }
+
+    .tips-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 400;
+      margin-bottom: 36px;
+    }
+
+    .tip-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .tip-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .tip-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--warm-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tip-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      padding-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--warm-mid);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-msg {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.8;
+      max-width: 320px;
+      margin: 0 auto 28px;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+    .tiktok-tag {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .tiktok-tag a { color: var(--accent); text-decoration: none; }
+
+    /* ── ERROR STATE ── */
+    .error-state {
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .error-state h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .error-state p { color: var(--text-light); }
+
+    /* ── LOADING ── */
+    .loading {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    @media (min-width: 640px) {
+      .player-card { padding: 40px 48px; }
+      .palette-section { padding: 80px 40px; }
+      .story-section, .tips-section { padding: 80px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app"><div class="loading">Loading your story…</div></div>
+
+<div class="copy-toast" id="copyToast">Colour copied!</div>
+
+<audio id="audioEl"></audio>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const PRODUCTS_URL = 'products.json';
+
+// ── URL PARAMS ──────────────────────────────────────────────────────────────
+const params  = new URLSearchParams(window.location.search);
+const pid     = (params.get('p') || '').toLowerCase().trim();
+const orderId = params.get('o') || '';
+const name    = params.get('n') || '';
+
+// ── AUDIO STATE ─────────────────────────────────────────────────────────────
+let synth     = window.speechSynthesis;
+let utterance = null;
+let isPlaying = false;
+let audioMode = 'tts'; // 'file' | 'tts'
+const audioEl = document.getElementById('audioEl');
+
+// ── HELPERS ─────────────────────────────────────────────────────────────────
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+  const toast = document.getElementById('copyToast');
+  toast.textContent = text + ' copied!';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function switchPalette(paletteId) {
+  document.querySelectorAll('.palette-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.palette-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.palette-tab[data-pid="${paletteId}"]`).classList.add('active');
+  document.querySelector(`.palette-panel[data-pid="${paletteId}"]`).classList.add('active');
+}
+
+// ── AUDIO ────────────────────────────────────────────────────────────────────
+function togglePlay(narration) {
+  const btn      = document.getElementById('playBtn');
+  const waveform = document.getElementById('waveform');
+
+  if (isPlaying) {
+    // Stop
+    if (audioMode === 'tts') { synth.cancel(); }
+    else { audioEl.pause(); audioEl.currentTime = 0; }
+    isPlaying = false;
+    btn.classList.remove('playing');
+    waveform.classList.remove('playing');
+    return;
+  }
+
+  // Start
+  if (audioMode === 'file') {
+    audioEl.play().catch(() => startTTS(narration, btn, waveform));
+    isPlaying = true;
+    btn.classList.add('playing');
+    waveform.classList.add('playing');
+    audioEl.onended = () => {
+      isPlaying = false;
+      btn.classList.remove('playing');
+      waveform.classList.remove('playing');
+    };
+    return;
+  }
+
+  startTTS(narration, btn, waveform);
+}
+
+function startTTS(narration, btn, waveform) {
+  if (!synth) return;
+  synth.cancel();
+  utterance = new SpeechSynthesisUtterance(narration);
+  utterance.rate  = 0.88;
+  utterance.pitch = 0.95;
+
+  // Prefer a warm English voice
+  const voices = synth.getVoices();
+  const preferred = voices.find(v =>
+    v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Karen'))
+  ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+  if (preferred) utterance.voice = preferred;
+
+  utterance.onend = () => {
+    isPlaying = false;
+    btn.classList.remove('playing');
+    waveform.classList.remove('playing');
+  };
+
+  synth.speak(utterance);
+  isPlaying = true;
+  btn.classList.add('playing');
+  waveform.classList.add('playing');
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function render(product) {
+  const greetingText = name ? `Hello, ${name}.` : 'Hello.';
+
+  const paletteTabs = product.palettes.map((p, i) =>
+    `<button class="palette-tab ${i === 0 ? 'active' : ''}" data-pid="${p.id}" onclick="switchPalette('${p.id}')">${p.name}</button>`
+  ).join('');
+
+  const palettePanels = product.palettes.map((p, i) => `
+    <div class="palette-panel ${i === 0 ? 'active' : ''}" data-pid="${p.id}">
+      <div class="palette-mood">${p.mood}</div>
+      <p class="palette-desc">${p.description}</p>
+      <div class="color-list">
+        ${p.colors.map(c => `
+          <div class="color-item" onclick="copyToClipboard('${c.hex}')" title="Tap to copy ${c.hex}">
+            <div class="color-swatch" style="background:${c.hex}"></div>
+            <div class="color-info">
+              <div class="color-name">${c.name}</div>
+              <div class="color-role">${c.role}</div>
+              <div class="color-tip">${c.tip}</div>
+            </div>
+            <div class="color-hex">${c.hex}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const tips = product.paintingTips.map((tip, i) => `
+    <div class="tip-item">
+      <div class="tip-number">${i + 1}</div>
+      <p class="tip-text">${tip}</p>
+    </div>
+  `).join('');
+
+  const waveformBars = Array.from({length: 13}, () => `<div class="waveform-bar"></div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <!-- HERO -->
+    <section class="hero">
+      <div class="brand-tag">Ilo Krafts</div>
+      <p class="greeting">${greetingText}</p>
+      <h1>${product.name}</h1>
+      <p class="hero-tagline">${product.tagline}</p>
+      <div class="scroll-hint">Your story</div>
+    </section>
+
+    <!-- AUDIO -->
+    <section class="audio-section">
+      <div class="section-label">Narration</div>
+      <div class="player-card">
+        <div class="player-title">${product.name}</div>
+        <div class="player-subtitle">A story from Ilo Krafts</div>
+        <button class="play-btn" id="playBtn" onclick="togglePlay(${JSON.stringify(product.narration)})">
+          <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <div class="waveform" id="waveform">${waveformBars}</div>
+        <p class="tts-note">Press play to hear your mold's story</p>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story-section">
+      <div class="section-label">The Story</div>
+      <p class="story-text">${product.story}</p>
+      <div class="story-divider"></div>
+      ${orderId ? `<p style="font-size:11px;color:var(--text-light);letter-spacing:0.1em">Order ${orderId}</p>` : ''}
+    </section>
+
+    <!-- PALETTES -->
+    <section class="palette-section">
+      <div class="section-label">Your Colour Guide</div>
+      <h2>Choose your colour story</h2>
+      <div class="palette-tabs">${paletteTabs}</div>
+      ${palettePanels}
+    </section>
+
+    <!-- TIPS -->
+    <section class="tips-section">
+      <div class="section-label">Before You Begin</div>
+      <h2>Painting guide</h2>
+      <div class="tip-list">${tips}</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-brand">Ilo Krafts</div>
+      <p class="footer-msg">Every piece you make is one of a kind. We can't wait to see what you create.</p>
+      <button class="share-btn" onclick="shareStory()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share this story
+      </button>
+      <p class="tiktok-tag">Follow us <a href="https://tiktok.com/@ilo.krafts" target="_blank">@ilo.krafts</a></p>
+    </footer>
+  `;
+
+  // Load audio file if available, fall back to TTS
+  if (product.audioFile) {
+    audioEl.src = product.audioFile;
+    audioEl.load();
+    audioEl.addEventListener('canplaythrough', () => { audioMode = 'file'; }, { once: true });
+  }
+
+  // Preload voices
+  if (synth) { synth.getVoices(); }
+}
+
+function shareStory() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: 'My Ilo Krafts Story', url });
+  } else {
+    copyToClipboard(url);
+    const toast = document.getElementById('copyToast');
+    toast.textContent = 'Link copied — share it!';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+}
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+async function init() {
+  if (!pid) {
+    document.getElementById('app').innerHTML = `
+      <div class="error-state">
+        <h2>No product specified</h2>
+        <p>Please scan the QR code on your thank-you card.</p>
+      </div>`;
+    return;
+  }
+
+  try {
+    const res  = await fetch(PRODUCTS_URL);
+    const data = await res.json();
+    const product = data[pid];
+    if (!product) throw new Error('Product not found');
+    render(product);
+  } catch (e) {
+    document.getElementById('app').innerHTML = `
+      <div class="error-state">
+        <h2>Story not found</h2>
+        <p>We couldn't find a story for this product. Please contact us at <strong>@ilo.krafts</strong>.</p>
+      </div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
