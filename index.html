@@ -26,6 +26,7 @@
       <button class="nav-tab" onclick="switchTab('output')"><span class="nav-tab-num">03</span>Final Output</button>
       <button class="nav-tab" onclick="switchTab('vintage')"><span class="nav-tab-num">04</span>Vintage Halftone</button>
       <button class="nav-tab" onclick="switchTab('halftone')"><span class="nav-tab-num">05</span>Halftone Processor</button>
+      <button class="nav-tab" onclick="switchTab('facewipe')"><span class="nav-tab-num">06</span>Face Wipe SPF 70</button>
     </div>
     <div class="nav-actions">
       <button class="btn-rand" onclick="randomize()">⚂ Randomize</button>
@@ -663,6 +664,169 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 6: FACE WIPE SPF 70 BUILDER ══ -->
+<div id="tab-facewipe" class="page">
+
+  <div class="fw-hero">
+    <div class="fw-hero-bg"></div>
+    <p class="fw-eyebrow">Product Design — 06</p>
+    <h2 class="fw-title">Face Wipe<br><span>SPF 70 Builder</span></h2>
+    <p class="fw-desc">Generate AI-ready product design prompts for your SPF 70 face wipe — formulated for all skin textures and types. Select your skin type, texture, product style, and tone representation to build a complete prompt for packaging art, ad visuals, or social content.</p>
+    <div class="fw-badges">
+      <span class="badge">✦ All Skin Types</span>
+      <span class="badge">✦ All Textures</span>
+      <span class="badge">✦ SPF 70 Protection</span>
+      <span class="badge">✦ Diverse Skin Tones</span>
+      <span class="badge">✦ Live Prompt</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- CONTROLS -->
+    <div>
+      <div class="vh-subject-row">
+        <span class="vh-sub-label">Product tagline / description <span class="dn-opt">(optional — e.g. "gentle daily wipe", "beach-ready SPF shield", "reef-safe sun protection")</span></span>
+        <input type="text" class="dn-input" id="fw-subject" placeholder="e.g. gentle SPF wipe for sensitive skin, reef-safe daily protection, no-rinse sun shield..." oninput="onFWSubject(this.value)">
+      </div>
+
+      <!-- 01 Skin Type -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">01</span><span class="vh-g-name">SKIN TYPE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-skinType">
+          <button class="vh-pill active" data-val="all"         onclick="setFW('skinType','all')">All skin types</button>
+          <button class="vh-pill"        data-val="oily"        onclick="setFW('skinType','oily')">Oily skin</button>
+          <button class="vh-pill"        data-val="dry"         onclick="setFW('skinType','dry')">Dry skin</button>
+          <button class="vh-pill"        data-val="combination" onclick="setFW('skinType','combination')">Combination skin</button>
+          <button class="vh-pill"        data-val="sensitive"   onclick="setFW('skinType','sensitive')">Sensitive skin</button>
+          <button class="vh-pill"        data-val="mature"      onclick="setFW('skinType','mature')">Mature skin</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-skinType">Inclusive formulation — works for every skin type</p>
+      </div>
+
+      <!-- 02 Skin Texture -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">02</span><span class="vh-g-name">SKIN TEXTURE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-skinTexture">
+          <button class="vh-pill active" data-val="all"      onclick="setFW('skinTexture','all')">All textures</button>
+          <button class="vh-pill"        data-val="smooth"   onclick="setFW('skinTexture','smooth')">Smooth &amp; even</button>
+          <button class="vh-pill"        data-val="dewy"     onclick="setFW('skinTexture','dewy')">Dewy &amp; glowing</button>
+          <button class="vh-pill"        data-val="textured" onclick="setFW('skinTexture','textured')">Textured / pores</button>
+          <button class="vh-pill"        data-val="uneven"   onclick="setFW('skinTexture','uneven')">Uneven / patchy</button>
+          <button class="vh-pill"        data-val="rough"    onclick="setFW('skinTexture','rough')">Rough / dry patches</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-skinTexture">Effective across all skin textures — no exceptions</p>
+      </div>
+
+      <!-- 03 Product Design Style -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">03</span><span class="vh-g-name">PRODUCT DESIGN STYLE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-designStyle">
+          <button class="vh-pill active" data-val="clean"    onclick="setFW('designStyle','clean')">Clean minimalist</button>
+          <button class="vh-pill"        data-val="luxury"   onclick="setFW('designStyle','luxury')">Luxury skincare</button>
+          <button class="vh-pill"        data-val="natural"  onclick="setFW('designStyle','natural')">Natural &amp; organic</button>
+          <button class="vh-pill"        data-val="clinical" onclick="setFW('designStyle','clinical')">Clinical / dermatological</button>
+          <button class="vh-pill"        data-val="vibrant"  onclick="setFW('designStyle','vibrant')">Vibrant &amp; bold</button>
+          <button class="vh-pill"        data-val="soft"     onclick="setFW('designStyle','soft')">Soft &amp; feminine</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-designStyle">Clean, modern packaging with sleek white and minimal typography</p>
+      </div>
+
+      <!-- 04 SPF Emphasis -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">04</span><span class="vh-g-name">SPF EMPHASIS</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-spfEmphasis">
+          <button class="vh-pill active" data-val="shield"  onclick="setFW('spfEmphasis','shield')">Bold UV shield</button>
+          <button class="vh-pill"        data-val="subtle"  onclick="setFW('spfEmphasis','subtle')">Subtle protection</button>
+          <button class="vh-pill"        data-val="derm"    onclick="setFW('spfEmphasis','derm')">Dermatologist recommended</button>
+          <button class="vh-pill"        data-val="outdoor" onclick="setFW('spfEmphasis','outdoor')">Beach &amp; outdoor</button>
+          <button class="vh-pill"        data-val="daily"   onclick="setFW('spfEmphasis','daily')">Everyday wear</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-spfEmphasis">Prominent SPF 70 badge — bold sun protection shield graphic</p>
+      </div>
+
+      <!-- 05 Skin Tone Representation -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">05</span><span class="vh-g-name">SKIN TONE REPRESENTATION</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-skinTone">
+          <button class="vh-pill active" data-val="diverse"  onclick="setFW('skinTone','diverse')">Diverse skin tones</button>
+          <button class="vh-pill"        data-val="fair"     onclick="setFW('skinTone','fair')">Fair / light</button>
+          <button class="vh-pill"        data-val="medium"   onclick="setFW('skinTone','medium')">Medium / tan</button>
+          <button class="vh-pill"        data-val="olive"    onclick="setFW('skinTone','olive')">Olive / brown</button>
+          <button class="vh-pill"        data-val="deep"     onclick="setFW('skinTone','deep')">Deep / dark</button>
+          <button class="vh-pill"        data-val="abstract" onclick="setFW('skinTone','abstract')">No model / abstract</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-skinTone">Inclusive representation across all skin tones and ethnicities</p>
+      </div>
+
+      <!-- 06 Color Palette -->
+      <div class="vh-group">
+        <div class="vh-group-head"><span class="vh-g-num">06</span><span class="vh-g-name">COLOR PALETTE</span><div class="vh-g-rule"></div></div>
+        <div class="vh-pills" id="fwg-colorPalette">
+          <button class="vh-pill active" data-val="white-blue"  onclick="setFW('colorPalette','white-blue')">Clean white &amp; sky blue</button>
+          <button class="vh-pill"        data-val="earthy"      onclick="setFW('colorPalette','earthy')">Earthy naturals</button>
+          <button class="vh-pill"        data-val="vibrant"     onclick="setFW('colorPalette','vibrant')">Bold vibrant pop</button>
+          <button class="vh-pill"        data-val="pastels"     onclick="setFW('colorPalette','pastels')">Soft pastels</button>
+          <button class="vh-pill"        data-val="clinical"    onclick="setFW('colorPalette','clinical')">Clinical white &amp; grey</button>
+          <button class="vh-pill"        data-val="gold-luxury" onclick="setFW('colorPalette','gold-luxury')">Gold luxury</button>
+        </div>
+        <p class="vh-hint" id="fw-hint-colorPalette">Fresh white and sky blue — clean clinical feel with summer UV energy</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sc">
+        <div class="sh"><span class="st">Active options</span><div class="sdot"></div></div>
+        <div class="sel-body">
+          <div id="fw-tags" class="vh-tags-wrap"><p class="sel-empty">Select options to see your product profile...</p></div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">SPF 70 design prompt</span></div>
+        <div class="pb">
+          <p class="ph">Live-updating AI prompt — paste into Midjourney, DALL·E, Adobe Firefly, or any AI image tool.</p>
+          <textarea class="pta" id="fw-prompt-out" readonly placeholder="Your SPF 70 face wipe design prompt will appear here..."></textarea>
+          <div class="pbtns">
+            <button class="btn-gen" onclick="copyFWPrompt()">⧉ Copy prompt</button>
+            <button class="btn-dl-sm" onclick="downloadFWPrompt()" title="Download .txt">↓</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">Product preview</span></div>
+        <div class="mockup-body">
+          <div class="fw-product-preview">
+            <div class="fw-wipe-pack">
+              <div class="fw-wipe-top">
+                <div class="fw-spf-badge">SPF<br>70</div>
+                <div class="fw-wipe-brand">FACE WIPE</div>
+              </div>
+              <div class="fw-wipe-mid">
+                <div class="fw-skin-dots" id="fw-skin-dots"></div>
+              </div>
+              <div class="fw-wipe-bot">
+                <span class="fw-allskin-label" id="fw-allskin-label">For All Skin Types &amp; Textures</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc">
+        <div class="sh"><span class="st">Product notes</span></div>
+        <div class="tips-body">
+          <div><p class="tl">SPF 70 protection</p><p class="tt">SPF 70 blocks ~98.6% of UVB rays. Design packaging to visually reinforce the high-protection story with sun or shield motifs.</p></div>
+          <div><p class="tl">All skin types &amp; textures</p><p class="tt">Build messaging around inclusivity — your visuals should reflect every skin tone and texture your wipe serves.</p></div>
+          <div><p class="tl">DTF packaging prints</p><p class="tt">Use this prompt to generate packaging art, then bring it into Tab 05 Halftone Processor for DTF-ready transfer printing.</p></div>
+          <div><p class="tl">Social content</p><p class="tt">Face wipe SPF content performs well with before/after skin tone diversity visuals and outdoor lifestyle settings.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

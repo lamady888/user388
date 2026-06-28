@@ -912,15 +912,208 @@ function initVintageTab() {
   updateVHTags();
 }
 
+/* ─── FACE WIPE SPF 70 ENGINE ─── */
+const FW_DATA = {
+  skinType: {
+    options: [
+      {id:"all",         label:"All skin types",    hint:"Inclusive formulation — works for every skin type",                                              prompt:"formulated for all skin types including oily, dry, combination, sensitive and mature skin"},
+      {id:"oily",        label:"Oily skin",          hint:"Controls excess sebum while providing SPF 70 protection",                                       prompt:"specifically designed for oily and acne-prone skin — mattifying SPF 70 formula"},
+      {id:"dry",         label:"Dry skin",           hint:"Deeply hydrating wipe formula with SPF 70 protection",                                         prompt:"enriched moisturising SPF 70 formula for dry and dehydrated skin"},
+      {id:"combination", label:"Combination skin",   hint:"Balances T-zone and dry areas while protecting with SPF 70",                                   prompt:"balancing SPF 70 formula for combination skin — mattifies oily zones while hydrating dry areas"},
+      {id:"sensitive",   label:"Sensitive skin",     hint:"Gentle, fragrance-free formula with SPF 70 for reactive skin",                                 prompt:"ultra-gentle hypoallergenic SPF 70 formula for sensitive and reactive skin — fragrance-free and dermatologist tested"},
+      {id:"mature",      label:"Mature skin",        hint:"Anti-ageing SPF 70 formula for mature and fine-lined skin",                                    prompt:"anti-ageing SPF 70 formula for mature skin — targets fine lines and age spots while providing broad spectrum protection"},
+    ]
+  },
+  skinTexture: {
+    options: [
+      {id:"all",      label:"All textures",          hint:"Effective across all skin textures — no exceptions",                                            prompt:"effective on all skin textures — smooth, textured, dewy, uneven and rough"},
+      {id:"smooth",   label:"Smooth & even",          hint:"Glides effortlessly on smooth skin for invisible SPF protection",                              prompt:"designed for smooth even skin — leaves an invisible weightless SPF 70 finish"},
+      {id:"dewy",     label:"Dewy & glowing",         hint:"Enhances natural glow while locking in SPF 70 protection",                                    prompt:"enhances dewy glowing skin — luminous finish with SPF 70 sun protection"},
+      {id:"textured", label:"Textured / pores",       hint:"Penetrates and works with visible pores and textured skin",                                   prompt:"works effectively on textured and porous skin — smooths while delivering SPF 70 protection"},
+      {id:"uneven",   label:"Uneven / patchy",        hint:"Evens out patchy areas and provides consistent SPF 70 coverage",                              prompt:"corrects uneven patchy skin tone while delivering consistent SPF 70 coverage across the face"},
+      {id:"rough",    label:"Rough / dry patches",    hint:"Softens rough dry patches while providing SPF 70 protection",                                 prompt:"gently softens rough dry patches while providing broad-spectrum SPF 70 protection"},
+    ]
+  },
+  designStyle: {
+    options: [
+      {id:"clean",    label:"Clean minimalist",       hint:"Clean, modern packaging with sleek white and minimal typography",                              prompt:"clean minimalist product design — sleek white packaging, modern sans-serif typography, airy and clinical aesthetic"},
+      {id:"luxury",   label:"Luxury skincare",        hint:"Premium gold and white packaging — high-end skincare positioning",                            prompt:"luxury skincare packaging design — premium gold and ivory tones, elegant serif typography, high-end prestige aesthetic"},
+      {id:"natural",  label:"Natural & organic",      hint:"Earth tones, botanical elements — clean and eco-friendly feel",                               prompt:"natural organic skincare design — earthy tones, botanical leaf and plant motifs, eco-friendly and clean beauty aesthetic"},
+      {id:"clinical", label:"Clinical / dermatological", hint:"Scientific and medical — white coat credibility and trust",                                prompt:"clinical dermatological design — medical white, precision typography, science-backed trust aesthetic with SPF data visualisation"},
+      {id:"vibrant",  label:"Vibrant & bold",         hint:"Bright pops of colour — energetic and eye-catching shelf presence",                          prompt:"vibrant bold packaging design — electric colour pops, strong geometric shapes, high energy and eye-catching shelf presence"},
+      {id:"soft",     label:"Soft & feminine",        hint:"Blush pinks, soft lilacs — gentle and approachable beauty brand",                            prompt:"soft feminine packaging design — blush pink, lilac and peach tones, rounded organic shapes, gentle approachable beauty aesthetic"},
+    ]
+  },
+  spfEmphasis: {
+    options: [
+      {id:"shield",  label:"Bold UV shield",          hint:"Prominent SPF 70 badge — bold sun protection shield graphic",                                 prompt:"prominent bold SPF 70 UV shield badge — sun protection is the hero message, shield and sun ray graphic motifs"},
+      {id:"subtle",  label:"Subtle protection",       hint:"SPF 70 quietly integrated — skincare first, sun protection second",                          prompt:"subtle SPF 70 integration — protection message is secondary, clean skincare-first visual language"},
+      {id:"derm",    label:"Dermatologist recommended", hint:"Trust signals and clinical authority — doctor-endorsed SPF",                               prompt:"dermatologist recommended SPF 70 — clinical trust badges, doctor endorsement seals, safety credentials on packaging"},
+      {id:"outdoor", label:"Beach & outdoor",         hint:"Sun, sand and water — active outdoor lifestyle with SPF 70",                                 prompt:"beach and outdoor lifestyle SPF 70 — sun rays, ocean waves, active outdoor energy, water resistance messaging"},
+      {id:"daily",   label:"Everyday wear",           hint:"Morning routine hero — SPF 70 as a daily skincare essential",                                prompt:"everyday daily-wear SPF 70 — morning skincare routine positioning, soft lifestyle aesthetic, consistent daily protection messaging"},
+    ]
+  },
+  skinTone: {
+    options: [
+      {id:"diverse",  label:"Diverse skin tones",     hint:"Inclusive representation across all skin tones and ethnicities",                              prompt:"diverse inclusive skin tone representation — models spanning fair through deep skin tones, celebrating all ethnicities"},
+      {id:"fair",     label:"Fair / light",            hint:"Fair and light skin tone focus — pink and ivory complexions",                                prompt:"fair and light skin tone representation — ivory and pink complexions, blue eyes and natural hair diversity"},
+      {id:"medium",   label:"Medium / tan",            hint:"Medium and tan skin tones — golden and warm complexions",                                    prompt:"medium and tan skin tone representation — golden warm complexions, natural sun-kissed appearance"},
+      {id:"olive",    label:"Olive / brown",           hint:"Olive and brown skin — Mediterranean, South Asian and Latin complexions",                   prompt:"olive and brown skin tone representation — Mediterranean, South Asian and Latin complexion diversity"},
+      {id:"deep",     label:"Deep / dark",             hint:"Deep and dark skin tones — rich and melanin-rich complexions",                              prompt:"deep and dark skin tone representation — rich melanin-rich complexions, African and African-diaspora beauty"},
+      {id:"abstract", label:"No model / abstract",    hint:"Product-only or abstract visual — no human skin shown",                                     prompt:"product-only and abstract visual — no human models, focus on the product, ingredients and abstract SPF UV shield motifs"},
+    ]
+  },
+  colorPalette: {
+    options: [
+      {id:"white-blue",  label:"Clean white & sky blue",  hint:"Fresh white and sky blue — clean clinical feel with summer UV energy",                   prompt:"clean white and sky blue colour palette — crisp, fresh, clinical and summer-ready"},
+      {id:"earthy",      label:"Earthy naturals",          hint:"Warm beiges, tans and greens — organic and natural brand feel",                         prompt:"earthy natural colour palette — warm beige, nude, tan and moss green tones, organic and clean beauty"},
+      {id:"vibrant",     label:"Bold vibrant pop",         hint:"Electric blues, yellows and corals — bold shelf-stopping energy",                       prompt:"bold vibrant pop colour palette — electric blue, sunshine yellow and coral, high energy shelf presence"},
+      {id:"pastels",     label:"Soft pastels",             hint:"Blush, lavender and mint — gentle and approachable palette",                            prompt:"soft pastel colour palette — blush pink, lavender, mint green and sky blue, gentle and approachable beauty"},
+      {id:"clinical",    label:"Clinical white & grey",    hint:"Pure white and silver — clinical precision and trust",                                  prompt:"clinical white and silver grey colour palette — medical precision, sterile and trustworthy dermatological brand aesthetic"},
+      {id:"gold-luxury", label:"Gold luxury",              hint:"Gold, ivory and deep navy — premium luxury skincare positioning",                       prompt:"luxury gold and ivory colour palette with deep navy accents — premium high-end skincare brand aesthetic"},
+    ]
+  },
+};
+
+let fwState = {
+  skinType:    "all",
+  skinTexture: "all",
+  designStyle: "clean",
+  spfEmphasis: "shield",
+  skinTone:    "diverse",
+  colorPalette:"white-blue",
+  subject:     "",
+};
+
+const SKIN_TONE_COLORS = {
+  diverse:  ["#f5c9a8","#d4956a","#c07040","#8b4513","#5c2a0e","#3a1a08"],
+  fair:     ["#fde8d8","#f5cbb0","#e8b898","#d4a080"],
+  medium:   ["#d4956a","#c07848","#a86030","#8b4820"],
+  olive:    ["#c09060","#a07040","#8b5830","#6b4020"],
+  deep:     ["#8b4513","#6b3010","#4a1e08","#3a1408"],
+  abstract: [],
+};
+
+function getFWOpt(category, id) {
+  return FW_DATA[category].options.find(o => o.id === id) || FW_DATA[category].options[0];
+}
+
+function generateFWPrompt() {
+  const st  = getFWOpt('skinType',    fwState.skinType);
+  const stx = getFWOpt('skinTexture', fwState.skinTexture);
+  const ds  = getFWOpt('designStyle', fwState.designStyle);
+  const se  = getFWOpt('spfEmphasis', fwState.spfEmphasis);
+  const tn  = getFWOpt('skinTone',    fwState.skinTone);
+  const cp  = getFWOpt('colorPalette',fwState.colorPalette);
+  const subj = fwState.subject.trim();
+
+  const parts = [
+    "SPF 70 face wipe product design",
+    ...(subj ? [subj] : []),
+    st.prompt,
+    stx.prompt,
+    ds.prompt,
+    se.prompt,
+    tn.prompt,
+    cp.prompt,
+    "broad spectrum UVA and UVB protection",
+    "SPF 70 clearly displayed on packaging",
+    "refreshing cleansing wipe",
+    "dermatologically tested",
+    "photorealistic product render or lifestyle photography",
+    "transparent background PNG",
+    "300 DPI print ready",
+    "no watermark",
+  ];
+
+  return parts.join(", ") + ".";
+}
+
+function setFW(category, value) {
+  fwState[category] = value;
+
+  const group = document.getElementById('fwg-' + category);
+  if (group) {
+    group.querySelectorAll('.vh-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === value);
+    });
+  }
+
+  const opt = getFWOpt(category, value);
+  const hint = document.getElementById('fw-hint-' + category);
+  if (hint) hint.textContent = opt.hint || '';
+
+  const out = document.getElementById('fw-prompt-out');
+  if (out) out.value = generateFWPrompt();
+
+  updateFWTags();
+  updateFWPreview();
+}
+
+function onFWSubject(v) {
+  fwState.subject = v;
+  const out = document.getElementById('fw-prompt-out');
+  if (out) out.value = generateFWPrompt();
+}
+
+function updateFWTags() {
+  const el = document.getElementById('fw-tags');
+  if (!el) return;
+  const cats = ['skinType','skinTexture','designStyle','spfEmphasis','skinTone','colorPalette'];
+  const tags = cats.map(cat => {
+    const opt = getFWOpt(cat, fwState[cat]);
+    return `<span class="vh-tag">${escHtml(opt.label)}</span>`;
+  }).join('');
+  el.innerHTML = tags;
+}
+
+function updateFWPreview() {
+  const dotsEl = document.getElementById('fw-skin-dots');
+  if (!dotsEl) return;
+  const colors = SKIN_TONE_COLORS[fwState.skinTone] || SKIN_TONE_COLORS.diverse;
+  if (!colors.length) {
+    dotsEl.innerHTML = '<div style="font-size:9px;color:rgba(26,74,112,0.6);text-align:center;width:100%">Product only</div>';
+  } else {
+    dotsEl.innerHTML = colors.map(c =>
+      `<div class="fw-skin-dot" style="background:${c}"></div>`
+    ).join('');
+  }
+  const lbl = document.getElementById('fw-allskin-label');
+  if (lbl) {
+    lbl.textContent = fwState.skinType === 'all'
+      ? 'For All Skin Types & Textures'
+      : getFWOpt('skinType', fwState.skinType).label + ' · SPF 70';
+  }
+}
+
+function copyFWPrompt() {
+  const t = document.getElementById('fw-prompt-out').value;
+  if (!t) { showToast('Generate a prompt first'); return; }
+  navigator.clipboard.writeText(t).then(() => showToast('SPF 70 prompt copied ✓'));
+}
+
+function downloadFWPrompt() {
+  const t = document.getElementById('fw-prompt-out').value;
+  dlTxt(t, 'face-wipe-spf70-prompt.txt');
+}
+
+function initFaceWipeTab() {
+  const out = document.getElementById('fw-prompt-out');
+  if (out) out.value = generateFWPrompt();
+  updateFWTags();
+  updateFWPreview();
+}
+
 /* ─── NAVIGATION ─── */
 function switchTab(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  const idx = ['builder', 'planner', 'output', 'vintage', 'halftone'].indexOf(name);
+  const idx = ['builder', 'planner', 'output', 'vintage', 'halftone', 'facewipe'].indexOf(name);
   if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
   if (name === 'output') updateSheetOutput();
   if (name === 'vintage') initVintageTab();
+  if (name === 'facewipe') initFaceWipeTab();
   if (name === 'halftone') {
     if (typeof HalftoneProcessor !== 'undefined') HalftoneProcessor.init();
   }
